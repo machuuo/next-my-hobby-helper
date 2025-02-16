@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎯 목표
 
-## Getting Started
+개인 취미 생활을 편리하게 즐기기 위한 **토이 프로젝트** 개발
 
-First, run the development server:
+**단기 목표**는 **TodoList 및 게임 정보 정리 기능**을 추가하여 효율적인 작업 환경 구축
+또한, **Headless UI (헤드리스 컴포넌트)**를 참고하여 **Atomic Design 방법론** 원칙에 맞는 **기본 컴포넌트 구조**를 설계
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**장기 목표**는 아래 계획을 순차적으로 실행하여 프로젝트를 확장하는 것입니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# 📌 개발 계획
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✅ 1. 사용자 맞춤 메뉴 기능 구현
 
-## Learn More
+- 사용자가 원하는 **메인/서브 메뉴를 추가 및 수정**할 수 있는 기능 개발
 
-To learn more about Next.js, take a look at the following resources:
+## ✅ 2. 데이터 연동 및 API 통신 기능 추가
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 외부 **API 데이터를 가져오고 활용할 수 있는 인터페이스** 구현
+- API 응답을 **캐싱 또는 상태 관리**하여 최적화
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ✅ 3. UI/UX 개선 및 드래그 인터랙션 추가
 
-## Deploy on Vercel
+- **컴포넌트 및 데이터를 원하는 위치에 배치할 수 있는 드래그 앤 드롭(Drag & Drop) UI** 구현
+- 사용자의 편의성을 고려한 **직관적인 인터랙션 디자인** 설계
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# ⚙️ 개발 원칙
+
+✅ **Atomic Design 방법론**을 기반으로 **재사용 가능한 컴포넌트** 구조 설계  
+✅ **Headless UI** 활용하여 **유연하고 확장 가능한 UI 컴포넌트** 제작  
+✅ 코드 품질을 유지하기 위해 **일관된 코드 스타일 및 구조 유지**  
+✅ **UX를 고려한 직관적인 인터랙션 및 성능 최적화**
+
+---

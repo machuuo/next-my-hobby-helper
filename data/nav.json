@@ -1,0 +1,30 @@
+[
+  {
+    "id": "todo",
+    "path": "/todo",
+    "label": "Todo 리스트",
+    "searchValue": "todo",
+    "isActive": false
+  },
+  {
+    "id": "notice",
+    "path": "/notice",
+    "label": "공지사항",
+    "searchValue": "notice",
+    "isActive": false
+  },
+  {
+    "id": "trade",
+    "path": "/trade",
+    "label": "교역",
+    "searchValue": "trade",
+    "isActive": false
+  },
+  {
+    "id": "auction",
+    "path": "/auction",
+    "label": "경매장",
+    "searchValue": "auction",
+    "isActive": false
+  }
+]

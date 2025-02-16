@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      height: {
+        main: "calc(100% - var(--HEADER-HEIGHT) - var(--NAVIGATION-HEIGHT) - var(--FOOTER-HEIGHT))",
+      },
     },
   },
   plugins: [],
