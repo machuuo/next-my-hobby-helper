@@ -2,11 +2,13 @@ import { notFound } from "next/navigation";
 import { PageProps } from "@/types/Props";
 import { PageComponentsProps } from "@/types/IndexSignatures";
 import navJson from "@/data/nav.json";
-import NoticePage from "./page/notice";
-import AuctionPage from "./page/auction";
-import TradePage from "./page/trade";
+import TodoPage from "@/components/pages/todo";
+import NoticePage from "@/components/pages/notice";
+import AuctionPage from "@/components/pages/auction";
+import TradePage from "@/components/pages/trade";
 
 const pageComponents: PageComponentsProps = {
+  todo: TodoPage,
   notice: NoticePage,
   auction: AuctionPage,
   trade: TradePage,

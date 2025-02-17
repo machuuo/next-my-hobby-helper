@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import CommonHeader from "@/components/molecules/common/header/CommonHeader";
-import CommonNav from "@/components/molecules/common/navigation/CommonNav";
-import CommonFooter from "@/components/molecules/common/footer/CommonFooter";
+import CommonHeader from "@/components/organisms/header/CommonHeader";
+import CommonNav from "@/components/organisms/navigation/CommonNav";
+import CommonFooter from "@/components/organisms/footer/CommonFooter";
 import RecoilRootProvider from "@/store/RecoilRootProvider";
 
 const geistSans = Geist({

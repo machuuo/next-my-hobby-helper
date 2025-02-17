@@ -13,7 +13,11 @@ function CommonNav() {
     <nav className={styles.navigation}>
       <div className={styles.menu}>
         {menus.map((menu: Menu) => (
-          <Link href={menu.path} key={menu.id}>
+          <Link
+            href={menu.path}
+            key={menu.id}
+            className="text-white hover:text-gray-500"
+          >
             <span className={styles.label}>{menu.label}</span>
           </Link>
         ))}

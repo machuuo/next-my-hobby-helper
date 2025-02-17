@@ -1,0 +1,13 @@
+.profileBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 16px;
+
+  .userName {
+    color: var(--color-white-600);
+    font-weight: 400;
+    font-size: 15px;
+  }
+}

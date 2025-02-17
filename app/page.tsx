@@ -1,5 +1,4 @@
-import CommonSearchBar from "@/components/molecules/common/searchBar/CommonSearchBar";
-// import Card from "@/components/atoms/Card";
+import CommonSearchBar from "@/components/molecules/searchBar/CommonSearchBar";
 // CSS
 import styles from "./page.module.css";
 

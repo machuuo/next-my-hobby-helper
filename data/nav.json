@@ -2,7 +2,7 @@
   {
     "id": "todo",
     "path": "/todo",
-    "label": "Todo 리스트",
+    "label": "Todo리스트",
     "searchValue": "todo",
     "isActive": false
   },

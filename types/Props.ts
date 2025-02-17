@@ -1,3 +1,16 @@
+import { ButtonHTMLAttributes } from "react";
+import { Variant, Size } from "./DesignTokens";
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string;
+}
+
+export interface FixedButtonProps extends ButtonProps {
+  variant?: Variant;
+  size?: Size;
+  fullWidth?: boolean;
+}
+
 export interface CardProps {
   alt_description: string;
   blur_hash: string;
