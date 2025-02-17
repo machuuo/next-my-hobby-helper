@@ -72,6 +72,16 @@
   - 현재 : `/components/organisms` 로 이동
   - ※ 레이아웃 관련 컴포넌트 = `CommonHeader`, `CommonNav`, `CommonFooter` 등
 
+### 참조자료
+
+- 버튼 컴포넌트 만들기 참조자료
+
+  - https://velog.io/@mrbartrns/%EC%9E%AC%EC%82%AC%EC%9A%A9-%EA%B0%80%EB%8A%A5%ED%95%9C-%EB%B2%84%ED%8A%BC-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0-React
+  - https://fe-developers.kakaoent.com/2024/240116-common-component/
+
+- 아토믹 디자인 참조자료
+  - https://east-star.tistory.com/42
+
 ---
 
 ### [1.0.0] - (2025-02-12)
