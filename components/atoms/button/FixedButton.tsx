@@ -14,7 +14,7 @@ import classNames from "classnames";
  * @param {boolean} props.fullWidth - 버튼이 부모 너비를 가득 채울지 여부
  * @param {string} props.className - 추가적인 CSS 클래스를 지정할 수 있음
  * @param {React.ReactNode} props.children - 버튼 내부에 표시될 요소
- * @param {React.ButtonHTMLAttributes<HTMLButtonElement>} rest - 기타 버튼 속성 (onClick, disabled 등)
+ * @param {React.ButtonHTMLAttributes<HTMLButtonElement>} props.rest - 기타 버튼 속성 (onClick, disabled 등)
  * @returns {JSX.Element} 스타일이 적용된 버튼 요소를 반환
  */
 export function FixedButton({

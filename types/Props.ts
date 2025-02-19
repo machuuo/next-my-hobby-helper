@@ -1,6 +1,11 @@
-import { ButtonHTMLAttributes } from "react";
+import {
+  ButtonHTMLAttributes,
+  InputHTMLAttributes,
+  TextareaHTMLAttributes,
+} from "react";
 import { Variant, Size } from "./DesignTokens";
 
+// button props
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
@@ -11,6 +16,21 @@ export interface FixedButtonProps extends ButtonProps {
   fullWidth?: boolean;
 }
 
+// input props
+export interface BaseInputProps {
+  as?: "input" | "textarea";
+  className?: string;
+}
+
+export interface InputProps
+  extends BaseInputProps,
+    InputHTMLAttributes<HTMLInputElement> {}
+
+export interface TextAreaProps
+  extends BaseInputProps,
+    TextareaHTMLAttributes<HTMLTextAreaElement> {}
+
+// card props (need to modify)
 export interface CardProps {
   alt_description: string;
   blur_hash: string;

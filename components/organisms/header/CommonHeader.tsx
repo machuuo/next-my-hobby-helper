@@ -1,16 +1,12 @@
 import Link from "next/link";
-// import Image from "next/image";
-import styles from "./CommonHeader.module.css";
 import ProfileBox from "@/components/molecules/profileBox/ProfileBox";
+import LogoBox from "@/components/molecules/logoBox/LogoBox";
 
 function CommonHeader() {
   return (
-    <header className={styles.header}>
+    <header className="flex items-center justify-between w-full h-[50px] py-0 px-4">
       <Link href={"/"}>
-        <div className={styles.logoBox}>
-          <span className={styles.logo}>(❁´◡`❁)</span>
-          <span className={styles.title}>취미나라</span>
-        </div>
+        <LogoBox />
       </Link>
       <ProfileBox />
     </header>

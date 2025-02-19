@@ -17,5 +17,10 @@ export default {
       },
     },
   },
+  // h1, h2, h3, ... => font-size, font-weight inherit 속성 제거
+  corePlugins: {
+    // preflight = 예비요청
+    // preflight: false,
+  },
   plugins: [],
 } satisfies Config;

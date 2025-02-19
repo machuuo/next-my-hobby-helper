@@ -22,6 +22,97 @@
 
 ---
 
+### [1.0.2] - (2025-02-19)
+
+### **✅ 추가**
+
+- > **인풋 컴포넌트 추가**
+
+  - input type 추가
+
+    ```ts
+    // input props
+    export interface BaseInputProps {
+      as?: "input" | "textarea";
+      className?: string;
+    }
+
+    export interface InputProps
+      extends BaseInputProps,
+        InputHTMLAttributes<HTMLInputElement> {}
+
+    export interface TextAreaProps
+      extends BaseInputProps,
+        TextareaHTMLAttributes<HTMLTextAreaElement> {}
+    ```
+
+  - BaseInput
+    - props.as : `input` or `textarea` 태그 선택
+    - 추가적인 스타일 적용 가능
+  - FixedInput
+    - `BaseInput` 을 활용하여 기본 스타일 + 추가 스타일 가능
+
+- > **인풋 컴포넌트들을 관리하기 위한 디렉토리 추가** (다음부턴 로그 안남김)
+
+  - 디렉토리 경로 추가 : `/components/atoms/input`
+    ```cpp
+    /components
+      /atoms
+        /input
+          ├── BaseInput.tsx      // 기본 버튼 컴포넌트
+          ├── FixedInput.tsx     // 스타일 지정된 버튼 (BaseInput 활용)
+          ├── index.ts           // 인풋 컴포넌트들을 한 곳에서 export
+    ```
+  - 구조 정리 : `index.ts` 를 추가하여 import 편의성 제공
+
+    ```ts
+    // index.ts
+    export { default as BaseInput } from "./BaseInput";
+    export { FixedInput } from "./FixedInput";
+
+    // 사용 예제
+    import { FixedInput } from "@/components/atoms/input";
+
+    <FixedInput as="textarea" className="w-[500px] h-40"></FixedInput>
+    ...
+    ```
+
+- > **공통 util 함수 추가**
+
+  - `util.ts`
+    - formatDate 함수 추가
+
+- > **Todo List 추가 (진행중)**
+  - Todo Item 객체 인터페이스 설정
+    ```ts
+    export interface TodoItem {
+      id: string;
+      tag: string[];
+      content: string;
+      isCompleted: boolean;
+      readonly createdAt: Date;
+      dueDate?: Date;
+      priority?: "high" | "medium" | "low";
+      updatedAt?: Date;
+    }
+    ```
+  - Todo 페이지 작성중 (`/components/pages/todo.tsx`)
+    - `localStorage` 사용하여 데이터 임시 관리
+    - `FixedInput`, `FixedButton` 사용
+    - Todo Item 추가, 리스트 보기 기능만 추가
+    - _(예정) 각 요소 디자인 추가_
+    - _(예정) 컴포넌트 모듈화_
+    - _(예정) 비즈니스 로직 분리_
+  - 네비게이터 active 추가
+    - `usePathname`, `startsWith` 활용
+
+### **🔄 변경**
+
+- > **공통 헤더 수정**
+  - logoBox 영역 컴포넌트 분리
+
+---
+
 ### [1.0.1] - (2025-02-17)
 
 ### **✅ 추가**
@@ -29,7 +120,7 @@
 - > **버튼 컴포넌트 추가**
   - BaseButton : 확장성을 위한 버튼 컴포넌트
     - 여러 종류 버튼 생성을 위한 기본 버튼 컴포넌트
-    - 기본적인 스타일만 정의, 필요한 경우 확장 가능
+    - 추가적인 스타일 적용 가능
   - FixedButton : 재사용성을 위한 버튼 컴포넌트
     - `BaseButton`을 활용하여 특정 디자인을 유지하거나 기능이 추가된 버튼 컴포넌트 예시
     - 네이밍을 통해 역할 구분 (Submit, Cancel 버튼 같은 것도 필요하면 추가)
@@ -40,7 +131,7 @@
     /components
       /atoms
         /button
-          ├── BaseButton.tsx      // 기번 버튼 컴포넌트
+          ├── BaseButton.tsx      // 기본 버튼 컴포넌트
           ├── FixedButton.tsx     // 스타일 지정된 버튼 (BaseButton 활용)
           ├── index.ts            // 버튼 컴포넌트들을 한 곳에서 export
     ```
