@@ -103,10 +103,12 @@
     - _(예정) 각 요소 디자인 추가_
     - _(예정) 컴포넌트 모듈화_
     - _(예정) 비즈니스 로직 분리_
-  - 네비게이터 active 추가
-    - `usePathname`, `startsWith` 활용
 
 ### **🔄 변경**
+
+- > **네비게이터 active 추가**
+
+  - `usePathname`, `startsWith` 활용
 
 - > **공통 헤더 수정**
   - logoBox 영역 컴포넌트 분리
