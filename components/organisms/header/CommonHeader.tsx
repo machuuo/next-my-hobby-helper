@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ProfileBox from "@/components/molecules/profileBox/ProfileBox";
-import LogoBox from "@/components/molecules/logoBox/LogoBox";
+import LogoBox from "@/components/molecules/logo/LogoBox";
 
 function CommonHeader() {
   return (

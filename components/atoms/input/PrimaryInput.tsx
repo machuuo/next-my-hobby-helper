@@ -14,10 +14,10 @@ type Props = InputProps | TextAreaProps;
  * @param {React.InputHTMLAttributes<HTMLInputElement> | React.TextareaHTMLAttributes<HTMLTextAreaElement>} props.rest - 기타 속성
  * @returns {JSX.Element} input 또는 textarea 요소
  */
-export function FixedInput({ as = "input", className, ...rest }: Props) {
-  const fixedStyle =
+export function PrimaryInput({ as = "input", className, ...rest }: Props) {
+  const primaryStyle =
     "border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-400 bg-gray-600";
-  const sharedClass = classNames(className, fixedStyle);
+  const sharedClass = classNames(className, primaryStyle);
 
   if (as === "input") {
     return (

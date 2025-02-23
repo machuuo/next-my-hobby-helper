@@ -1,2 +1,2 @@
 export { default as BaseButton } from "./BaseButton";
-export { FixedButton } from "./FixedButton";
+export { PrimaryButton } from "./PrimaryButton";

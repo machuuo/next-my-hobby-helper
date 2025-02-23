@@ -1,2 +1,2 @@
 export { default as BaseInput } from "./BaseInput";
-export { FixedInput } from "./FixedInput";
+export { PrimaryInput } from "./PrimaryInput";

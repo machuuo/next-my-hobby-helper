@@ -1,4 +1,4 @@
-export interface TodoItem {
+export interface TodoItemProps {
   id: string;
   tag: string[];
   content: string;
@@ -8,3 +8,5 @@ export interface TodoItem {
   priority?: "high" | "medium" | "low";
   updatedAt?: Date;
 }
+
+export type TodoListProps = TodoItemProps[];

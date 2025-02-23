@@ -1,22 +1,21 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { FixedInput } from "@/components/atoms/input";
-import { FixedButton } from "@/components/atoms/button";
-import { TodoItem } from "@/types/Item";
-import { formatDate } from "@/lib/util";
+import { TodoListProps } from "@/types/Item";
+import { PrimaryInput } from "@/components/atoms/input";
+import { PrimaryButton } from "@/components/atoms/button";
+import TodoList from "@/components/organisms/todo/TodoList";
+import styles from "./todo.module.css";
 
 function TodoPage() {
-  const [todos, setTodos] = useState<TodoItem[]>([]);
+  const [todos, setTodos] = useState<TodoListProps>([]);
 
   useEffect(() => {
     setTodos(() => {
-      if (typeof window !== "undefined") {
-        const data = localStorage.getItem("data");
+      const data = localStorage.getItem("data");
 
-        if (data) {
-          return JSON.parse(data);
-        }
+      if (data) {
+        return JSON.parse(data);
       }
 
       return [];
@@ -50,37 +49,36 @@ function TodoPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full gap-12 overflow-y-auto">
-      <div className="flex flex-row justify-center w-full">
-        <form className="flex gap-4" onSubmit={handleSubmit}>
-          <FixedInput
-            name="todo"
-            as="textarea"
-            required
-            className="min-w-[300px] h-40"
-          ></FixedInput>
-          <FixedButton
-            type="submit"
-            size="xl"
-            className="bg-slate-50 text-gray-600 w-[100px]"
-          >
-            추가
-          </FixedButton>
-        </form>
-      </div>
-      <div className="todoList flex flex-col gap-8">
-        {todos.map((todo) => {
-          return (
-            <div key={todo.id}>
-              <p>{todo.content}</p>
-              <p>{todo.tag}</p>
-              <p>{formatDate(todo.createdAt)}</p>
-              <p>{todo.isCompleted ? "completed" : "not yet"}</p>
-              <p>{todo.dueDate?.getTime()}</p>
-              <p>{todo.priority}</p>
-            </div>
-          );
-        })}
+    <div className={styles.todoWrapper}>
+      <header className={styles.todoHeader}>
+        {/* <h2>{new Date().toISOString()}</h2> */}
+        <div className={styles.todoInput}>
+          <form className="flex gap-4" onSubmit={handleSubmit}>
+            <PrimaryInput
+              name="todo"
+              as="textarea"
+              required
+              className="min-w-[300px] h-30"
+              placeholder="할 일 입력"
+            />
+            <PrimaryButton
+              type="submit"
+              size="xl"
+              className="bg-slate-50 text-gray-600 w-[100px]"
+            >
+              추가
+            </PrimaryButton>
+          </form>
+        </div>
+      </header>
+      {/* TodoList Area */}
+      <div className={styles.todoList}>
+        {/* to start */}
+        <TodoList mode="start" todos={todos} />
+        {/* in progress */}
+        <TodoList mode="progress" />
+        {/* done */}
+        <TodoList mode="done" />
       </div>
     </div>
   );
