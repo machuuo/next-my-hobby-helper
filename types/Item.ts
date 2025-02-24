@@ -1,8 +1,8 @@
 export interface TodoItemProps {
   id: string;
-  tag: string[];
+  tags: string[];
   content: string;
-  isCompleted: boolean;
+  status: "start" | "done";
   readonly createdAt: Date;
   dueDate?: Date;
   priority?: "high" | "medium" | "low";

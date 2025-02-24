@@ -2,8 +2,8 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { TodoListProps } from "@/types/Item";
-import { PrimaryInput } from "@/components/atoms/input";
-import { PrimaryButton } from "@/components/atoms/button";
+import { StyledInput } from "@/components/atoms/input";
+import { StyledButton } from "@/components/atoms/button";
 import TodoList from "@/components/organisms/todo/TodoList";
 import styles from "./todo.module.css";
 
@@ -31,11 +31,11 @@ function TodoPage() {
 
     const newTodo = {
       id: new Date().getTime().toString(),
-      tag: ["study"],
+      tags: ["study", "game", "sports"],
       content: todo,
-      isCompleted: false,
+      status: "start" as const,
       createdAt: new Date(),
-      priority: "medium" as const,
+      priority: "low" as const,
     };
 
     setTodos((prevState) => {
@@ -54,31 +54,26 @@ function TodoPage() {
         {/* <h2>{new Date().toISOString()}</h2> */}
         <div className={styles.todoInput}>
           <form className="flex gap-4" onSubmit={handleSubmit}>
-            <PrimaryInput
+            <StyledInput
               name="todo"
               as="textarea"
               required
               className="min-w-[300px] h-30"
               placeholder="할 일 입력"
             />
-            <PrimaryButton
+            <StyledButton
               type="submit"
               size="xl"
               className="bg-slate-50 text-gray-600 w-[100px]"
             >
               추가
-            </PrimaryButton>
+            </StyledButton>
           </form>
         </div>
       </header>
       {/* TodoList Area */}
       <div className={styles.todoList}>
-        {/* to start */}
-        <TodoList mode="start" todos={todos} />
-        {/* in progress */}
-        <TodoList mode="progress" />
-        {/* done */}
-        <TodoList mode="done" />
+        <TodoList todos={todos} />
       </div>
     </div>
   );

@@ -1,0 +1,7 @@
+.todoCard {
+  @apply flex flex-col items-center gap-3 rounded-md p-3 border bg-white shadow-md;
+}
+
+.tagArea {
+  @apply flex flex-row self-end gap-1;
+}

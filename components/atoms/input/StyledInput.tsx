@@ -1,10 +1,10 @@
 "use client";
 
-import { InputProps, TextAreaProps } from "@/types/Props";
+import { StyledInputProps, StyledTextAreaProps } from "@/types/Props";
 import classNames from "classnames";
 import { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 
-type Props = InputProps | TextAreaProps;
+type Props = StyledInputProps | StyledTextAreaProps;
 
 /**
  * 스타일이 지정된 입력 컴포넌트
@@ -14,7 +14,7 @@ type Props = InputProps | TextAreaProps;
  * @param {React.InputHTMLAttributes<HTMLInputElement> | React.TextareaHTMLAttributes<HTMLTextAreaElement>} props.rest - 기타 속성
  * @returns {JSX.Element} input 또는 textarea 요소
  */
-export function PrimaryInput({ as = "input", className, ...rest }: Props) {
+export function StyledInput({ as = "input", className, ...rest }: Props) {
   const primaryStyle =
     "border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-400 bg-gray-600";
   const sharedClass = classNames(className, primaryStyle);

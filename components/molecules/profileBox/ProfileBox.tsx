@@ -1,6 +1,6 @@
 "use client";
 
-import { PrimaryButton } from "@/components/atoms/button";
+import { StyledButton } from "@/components/atoms/button";
 import styles from "./ProfileBox.module.css";
 
 const ProfileBox = () => {
@@ -10,8 +10,8 @@ const ProfileBox = () => {
 
   return (
     <div className={styles.profileBox}>
-      <PrimaryButton onClick={clickHandler}>사진제출(UI만)</PrimaryButton>
-      <PrimaryButton onClick={clickHandler}>북마크(UI만)</PrimaryButton>
+      <StyledButton onClick={clickHandler}>사진제출(UI만)</StyledButton>
+      <StyledButton onClick={clickHandler}>북마크(UI만)</StyledButton>
       <span className={styles.userName}>tester94@test.com</span>
     </div>
   );

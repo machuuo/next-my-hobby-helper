@@ -1,34 +1,41 @@
 "use client";
 
 import { TodoListProps } from "@/types/Item";
-import TodoItem from "@/components/molecules/todo/TodoItem";
+import TodoCard from "@/components/organisms/todo/TodoCard";
 import styles from "./TodoList.module.css";
+import classNames from "classnames";
 
 interface Props {
-  mode: "start" | "progress" | "done";
   todos?: TodoListProps;
+  className?: string;
 }
 
-export default function TodoList({ mode, todos = [] }: Props) {
-  let HeadingStr;
-
-  if (mode === "start") {
-    HeadingStr = <h3>시작</h3>;
-  } else if (mode === "progress") {
-    HeadingStr = <h3>진행</h3>;
-  } else {
-    HeadingStr = <h3>완료</h3>;
-  }
+export default function TodoList(props: Props) {
+  const { todos = [], className } = props;
 
   return (
-    <div className={styles.todoListWrapper}>
-      {HeadingStr}
-      <div className={styles.todoList}>
-        {todos.length > 0 &&
-          todos.map((todo) => {
-            return <TodoItem key={todo.id} todo={todo} />;
-          })}
-      </div>
+    <div className={classNames(styles.todoListWrapper, className)}>
+      {["start", "done"].map((mode) => {
+        let HeadingStr;
+
+        if (mode === "start") {
+          HeadingStr = "시작";
+        } else {
+          HeadingStr = "완료";
+        }
+
+        const Heading = <h2 className="self-center">{HeadingStr}</h2>;
+
+        return (
+          <div key={mode} className={styles.todoList}>
+            {Heading}
+            {todos.length > 0 &&
+              todos
+                .filter((todo) => todo.status === mode)
+                .map((todo) => <TodoCard key={todo.id} {...todo} />)}
+          </div>
+        );
+      })}
     </div>
   );
 }
