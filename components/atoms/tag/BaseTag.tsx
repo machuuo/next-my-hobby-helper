@@ -1,22 +1,12 @@
 "use client";
 
-import { ColorName, colors, ColorShade } from "@/styles/design-tokens";
 import { TagProps } from "@/types/Props";
 import classNames from "classnames";
-import { HTMLAttributes } from "react";
-
-export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
-  text: string;
-  color?: ColorName; // 색상 계열
-  shade?: ColorShade; // 밝기 단계
-  onClick?: () => void;
-}
 
 export default function BaseTag({
   text,
   color = "gray",
-  onClick,
-  className,
+  className = "rounded-md p-0.5",
   ...rest
 }: TagProps) {
   const colorStyles = {
@@ -28,7 +18,7 @@ export default function BaseTag({
   }[color];
 
   return (
-    <span className={classNames(className, colorStyles, "rounded-md p-0.5")}>
+    <span className={classNames(className, colorStyles)} {...rest}>
       {text}
     </span>
   );

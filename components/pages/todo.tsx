@@ -33,7 +33,7 @@ function TodoPage() {
       id: new Date().getTime().toString(),
       tags: ["study", "game", "sports"],
       content: todo,
-      status: "start" as const,
+      status: "done" as const,
       createdAt: new Date(),
       priority: "low" as const,
     };

@@ -9,7 +9,7 @@ import { Variant, Size, TagColor } from "./DesignTokens";
 export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
   text: string;
   color?: TagColor; // 색상 계열
-  onClick?: () => void;
+  className?: string;
 }
 
 // button props

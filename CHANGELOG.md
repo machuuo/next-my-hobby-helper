@@ -23,16 +23,31 @@
 - **MAJOR (주 버전)** : 기존 버전과 호환되지 않는 <span style="color: red">**대규모 변경**</span>이 있을 때 증가
 - **MINOR (부 버전)** : 기존 기능과 <span style="color: yellow">**호환되면서 새로운 기능 추가**</span>
 - **PATCH (수정 버전)** : 기존 기능과 <span style="color: skyblue">**호환되는 버그 수정**</span>
-- ***
 
-### [1.0.1] - (2025-02-23)
+---
+
+### [1.0.1] - (2025-02-25)
 
 ### **✅ 추가**
+
+- > Tag 컴포넌트 추가
+- > useDragAndDropEle.ts 커스텀 훅 추가
+  - HTML 드래그 앤 드롭 API 활용
+  - dragstart, drop 커스텀 이벤트 설정 (선택적)
 
 ### **🔄 변경**
 
 - > 역할 명확성을 위한 컴포넌트 명명 변경
-  - 스타일이 지정된 기본 버튼, 입력 컴포넌트 (FixedButton, FixedInput)의 이름을 `Primary~~~` 로 변경
+  - 스타일이 지정된 기본 버튼, 입력 컴포넌트 (FixedButton, FixedInput)의 이름을 `Styled~~~` 로 변경
+
+---
+
+### [1.0.1] - (2025-02-23)
+
+### **🔄 변경**
+
+- > 역할 명확성을 위한 컴포넌트 명명 변경
+  - 스타일이 지정된 기본 버튼, 입력 컴포넌트 (FixedButton, FixedInput)의 이름을 `Styled~~~` 로 변경
 
 ---
 
