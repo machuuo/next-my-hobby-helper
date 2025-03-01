@@ -4,7 +4,9 @@ import "./globals.css";
 import CommonHeader from "@/components/organisms/header/CommonHeader";
 import CommonNav from "@/components/organisms/navigation/CommonNav";
 import CommonFooter from "@/components/organisms/footer/CommonFooter";
-import RecoilRootProvider from "@/store/RecoilRootProvider";
+import ModalWrapper from "@/components/ModalWrapper";
+import RecoilRootProvider from "@/stores/RecoilRootProvider";
+import ThemeProvider from "@/components/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,23 +29,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="text-foreground">
       <RecoilRootProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col `}
-        >
-          <div className="flex flex-col items-center justify-start w-full h-screen">
-            {/* 공통 헤더 UI */}
-            <CommonHeader />
-            {/* 공통 네비게이터 UI */}
-            <CommonNav />
-            <main className="hello flex flex-col items-center justify-center w-full h-main">
-              {children}
-            </main>
-            {/* 공통 푸터 UI */}
-            <CommonFooter />
-          </div>
-        </body>
+        <ThemeProvider>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col`}
+          >
+            <ModalWrapper />
+            <div className="flex flex-col items-center justify-start w-full h-screen">
+              {/* 공통 헤더 UI */}
+              <CommonHeader />
+              {/* 공통 네비게이터 UI */}
+              <CommonNav />
+              <main className="hello flex flex-col items-center justify-center w-full h-main">
+                {children}
+              </main>
+              {/* 공통 푸터 UI */}
+              <CommonFooter />
+            </div>
+          </body>
+        </ThemeProvider>
       </RecoilRootProvider>
     </html>
   );

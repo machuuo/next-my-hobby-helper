@@ -2,8 +2,6 @@
 
 ## 📌 **CHANGELOG 형식 요약**
 
-🔹 **[버전] - (날짜)**
-
 - > **✅ 추가**
   > : 새롭게 추가된 기능
 - > **🔄 변경**
@@ -13,27 +11,112 @@
 - > **❌ 제거**
   > 제거된 기능
 
-💡 **팁:**
+---
 
-- **중요 변경 사항**은 ✅/🔹/🛠️ 같은 이모지를 활용하여 가독성 향상
-- **날짜 포맷**은 `YYYY-MM-DD`로 통일
+### 2025-02-27
 
-📌 버전 번호 형식 (MAJOR.MINOR.PATCH)
+### **✅ 추가**
 
-- **MAJOR (주 버전)** : 기존 버전과 호환되지 않는 <span style="color: red">**대규모 변경**</span>이 있을 때 증가
-- **MINOR (부 버전)** : 기존 기능과 <span style="color: yellow">**호환되면서 새로운 기능 추가**</span>
-- **PATCH (수정 버전)** : 기존 기능과 <span style="color: skyblue">**호환되는 버그 수정**</span>
+- > zustand 추가
+
+  - 라이트/다크 테마 상태 관리
+  - 모달 내부 컨텐츠 및 호출 여부 상태 관리
+
+- > 라이트/다크 테마 추가
+
+  - 모든 요소에 적용되도록 기본 스타일 레이어 추가(`@layer base`)
+  - themeStore.ts 생성
+    - zustand 활용
+      - 색상 테마 상태 관리
+      - state
+        - 기본 테마값 설정
+        - 테마 설정
+      - action
+        - 테마 토글 메소드 생성
+  - ThemeProvider.tsx 추가
+    - 클라이언트 컴포넌트화
+    - 색상 테마 전역 설정
+    - window.matchMedia("(prefers-color-scheme: dark)").matches 활용하여 기본 선호 테마 확인 및 설정
+    - layout.tsx에 추가
+
+- > 모달 추가
+
+  - modalStore.ts 생성
+    - zustand 활용
+      - 모달 상태 관리
+      - state
+        - 열림 여부로 모달 여닫기
+        - 제목, 본문 내용(태그) 설정
+      - action
+        - 모달 열기 : 열기 true
+        - 모달 닫기 : 열기 false (닫기)
+  - 컴포넌트 생성
+    - 뒷배경, 컨텐츠 div 구분
+    - 이벤트 버블링 활용하여 뒷배경 클릭 시 모달창 닫기
+  - 모달 래퍼 생성
+    - 클라이언트 컴포넌트화
+    - 모달 전역 설정
+    - 기본 전역 상태 활용하여 그대로 주입
+    - 최종 모달 컴포넌트 리턴
+  - 사용 예시
+
+    ```tsx
+    // 모달 타이틀, 컨텐츠 설정
+    const handleOpenModal = () => {
+      openModal(
+        "Todo 추가",
+        <div className={styles.todoInput}>
+          <form className="flex gap-4" onSubmit={handleSubmit}>
+            <StyledInput
+              name="todo"
+              as="textarea"
+              required
+              className="min-w-[300px] h-30"
+              placeholder="할 일 입력"
+            />
+            <StyledButton
+              type="submit"
+              size="xl"
+              className="bg-slate-50 text-gray-600 w-[100px]"
+            >
+              추가
+            </StyledButton>
+          </form>
+        </div>
+      ); // 모달 내용 추가 필요
+
+      // 적용
+      <BaseButton className={styles.newTodoButton} onClick={handleOpenModal}>
+        Todo 추가
+      </BaseButton>;
+    };
+    ```
+
+### **🛠️ 수정**
+
+- > useDragAndDropEle 수정
+  - `ul, li 태그 한정`으로 drop 대상 설정 => ul height 중요(flex: 1 1 0%)
+    - drop 대상이 ul일 경우 : 해당 리스트의 맨 아래에 li 이동
+    - drop 대상이 li일 경우 : 해당 아이템의 바로 앞에 li 이동
+  - "시작" 영역의 ul에서 `Todo 추가` 버튼 `최하단 유지` 시키기 위한 "data-fixed" 속성 추가
+    - drop 대상이 ul일 경우 data-fixed 속성이 있는 태그라면 (여기선 li) 해당 아이템 바로 앞에 li 이동
 
 ---
 
-### [1.0.1] - (2025-02-25)
+### 2025-02-25
 
 ### **✅ 추가**
 
 - > Tag 컴포넌트 추가
-- > useDragAndDropEle.ts 커스텀 훅 추가
-  - HTML 드래그 앤 드롭 API 활용
+- > useDragAndDropEle 커스텀 훅 추가
+  - HTML5 드래그 앤 드롭 API 활용
+  - event.preventDefault() 기본 동작 제어 후 커스텀 이벤트 동작 추가
   - dragstart, drop 커스텀 이벤트 설정 (선택적)
+  - "data-droppable" 속성값으로 drop 가능 여부 확인
+
+---
+
+### 2025-02-23
 
 ### **🔄 변경**
 
@@ -42,16 +125,7 @@
 
 ---
 
-### [1.0.1] - (2025-02-23)
-
-### **🔄 변경**
-
-- > 역할 명확성을 위한 컴포넌트 명명 변경
-  - 스타일이 지정된 기본 버튼, 입력 컴포넌트 (FixedButton, FixedInput)의 이름을 `Styled~~~` 로 변경
-
----
-
-### [1.0.1] - (2025-02-21)
+### 2025-02-21
 
 ### **✅ 추가**
 
@@ -135,7 +209,6 @@
     - `/components/organisms/TodoList`
     - 각 컴포넌트별 간단한 스타일 적용
 - > **카드 컴포넌트 추가**
-  -
 
 ### **🔄 변경**
 
@@ -151,7 +224,7 @@
 
 ---
 
-### [1.0.1] - (2025-02-17)
+### 2025-02-17
 
 ### **✅ 추가**
 
@@ -213,7 +286,7 @@
 
 ---
 
-### [1.0.0] - (2025-02-12)
+### 2025-02-12
 
 ### **✅ 추가**
 

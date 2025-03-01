@@ -1,24 +1,13 @@
 .button {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-
   position: relative;
-  min-width: 64px;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 14px;
   cursor: pointer;
 
-  line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
   user-select: none;
   transition: background-color 0.1s ease;
-  gap: 4px;
 }
 
 /* variant */

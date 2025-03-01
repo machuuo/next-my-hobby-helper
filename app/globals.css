@@ -18,8 +18,10 @@ h3 {
 h4 {
   @apply text-lg;
 }
-a {
-  @apply text-blue-600 underline;
+@layer base {
+  body * {
+    @apply text-foreground; /* 모든 요소에 text-foreground 적용 */
+  }
 }
 
 :root {
@@ -29,6 +31,11 @@ a {
   --HEADER-HEIGHT: 50px;
   --FOOTER-HEIGHT: 50px;
   --NAVIGATION-HEIGHT: 50px;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed; /* 다크 모드 기본 글자색 */
 }
 
 * {
@@ -46,11 +53,8 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+ul {
+  list-style: none;
 }
 
 body {

@@ -25,15 +25,17 @@ export function StyledButton({
   children,
   ...rest
 }: StyledButtonProps) {
-  const buttonClass = `
-    ${styles[variant]}
-    ${styles[size]}
-    ${classNames(className)}
-    ${fullWidth ? styles.fullWidth : ""}
-  `;
-
   return (
-    <BaseButton className={classNames(buttonClass.trim())} {...rest}>
+    <BaseButton
+      className={classNames(
+        "rounded-md",
+        styles[variant],
+        styles[size],
+        className,
+        fullWidth ? styles.fullWidth : ""
+      )}
+      {...rest}
+    >
       {children}
     </BaseButton>
   );

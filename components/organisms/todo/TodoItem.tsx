@@ -9,7 +9,7 @@ export default function TodoItem(props: TodoItemProps) {
   return (
     <div className="flex flex-row self-start gap-3">
       <BaseCheckBox checked={isCompleted} />
-      <p>{content}</p>
+      <p className="text-black">{content}</p>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import {
 } from "react";
 import { Variant, Size, TagColor } from "./DesignTokens";
 
+// tag props
 export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
   text: string;
   color?: TagColor; // 색상 계열
@@ -55,6 +56,14 @@ export interface CardProps {
   children?: React.ReactNode;
   onClick?: () => void;
   className?: string;
+}
+
+// modal props
+export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  children?: React.ReactNode;
 }
 
 // Next ^15 page params

@@ -1,4 +1,3 @@
-import Card from "@/components/atoms/card/Card";
 import { TodoItemProps } from "@/types/Item";
 import TodoItem from "./TodoItem";
 import styles from "./TodoCard.module.css";

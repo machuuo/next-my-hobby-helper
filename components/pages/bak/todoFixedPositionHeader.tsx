@@ -1,21 +1,22 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { TodoListProps } from "@/types/Item";
 import { StyledInput } from "@/components/atoms/input";
 import { StyledButton } from "@/components/atoms/button";
-import TodoList from "@/components/organisms/todo/TodoList";
-import styles from "./todo.module.css";
+import { TodoListProps } from "@/types/Item";
+import { formatDate } from "@/lib/util";
 
 function TodoPage() {
   const [todos, setTodos] = useState<TodoListProps>([]);
 
   useEffect(() => {
     setTodos(() => {
-      const data = localStorage.getItem("data");
+      if (typeof window !== "undefined") {
+        const data = localStorage.getItem("data");
 
-      if (data) {
-        return JSON.parse(data);
+        if (data) {
+          return JSON.parse(data);
+        }
       }
 
       return [];
@@ -49,18 +50,17 @@ function TodoPage() {
   };
 
   return (
-    <div className={styles.todoWrapper}>
-      <header className={styles.todoHeader}>
-        {/* <h2>{new Date().toISOString()}</h2> */}
-        <div className={styles.todoInput}>
+    <div className="flex flex-col items-center w-full flex-1 gap-12 overflow-auto">
+      <header className="fixed flex flex-col items-center justify-center z-10 w-full h-[200px] bg-blue-500 text-white">
+        <h1 className="text-2xl">{formatDate(new Date())}</h1>
+        <div className="flex flex-row justify-center w-full">
           <form className="flex gap-4" onSubmit={handleSubmit}>
             <StyledInput
               name="todo"
               as="textarea"
               required
               className="min-w-[300px] h-30"
-              placeholder="할 일 입력"
-            />
+            ></StyledInput>
             <StyledButton
               type="submit"
               size="xl"
@@ -72,8 +72,24 @@ function TodoPage() {
         </div>
       </header>
       {/* TodoList Area */}
-      <div className={styles.todoList}>
-        <TodoList todos={todos} handleSubmit={handleSubmit} />
+      <div className="flex flex-row gap-10 pt-[250px] pb-40">
+        {/* to start */}
+        <div className="flex flex-col flex-1 gap-8 min-w-60 max-w-xs bg-slate-400">
+          {todos.map((todo) => {
+            return (
+              <div key={todo.id}>
+                <p>{todo.content}</p>
+                <p>{todo.tags}</p>
+                <p>{formatDate(todo.createdAt)}</p>
+                <p>{todo.status ? "start" : "done"}</p>
+                <p>{todo.dueDate?.getTime()}</p>
+                <p>{todo.priority}</p>
+              </div>
+            );
+          })}
+        </div>
+        {/* done */}
+        <div className="flex flex-col flex-1 gap-8 min-w-60 max-w-xs bg-gray-600"></div>
       </div>
     </div>
   );

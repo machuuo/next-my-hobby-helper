@@ -15,6 +15,7 @@ export default {
       height: {
         main: "calc(100% - var(--HEADER-HEIGHT) - var(--NAVIGATION-HEIGHT) - var(--FOOTER-HEIGHT))",
       },
+      darkMode: "class",
     },
   },
   // h1, h2, h3, ... => font-size, font-weight inherit 속성 제거
