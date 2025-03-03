@@ -2,10 +2,10 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { TodoListProps } from "@/types/Item";
-import { StyledInput } from "@/components/atoms/input";
-import { StyledButton } from "@/components/atoms/button";
+import TodoHeader from "@/components/organisms/todo/TodoHeader";
 import TodoList from "@/components/organisms/todo/TodoList";
-import styles from "./todo.module.css";
+import styles from "@/components/organisms/todo/Todo.module.css";
+import classNames from "classnames";
 
 function TodoPage() {
   const [todos, setTodos] = useState<TodoListProps>([]);
@@ -49,30 +49,10 @@ function TodoPage() {
   };
 
   return (
-    <div className={styles.todoWrapper}>
-      <header className={styles.todoHeader}>
-        {/* <h2>{new Date().toISOString()}</h2> */}
-        <div className={styles.todoInput}>
-          <form className="flex gap-4" onSubmit={handleSubmit}>
-            <StyledInput
-              name="todo"
-              as="textarea"
-              required
-              className="min-w-[300px] h-30"
-              placeholder="할 일 입력"
-            />
-            <StyledButton
-              type="submit"
-              size="xl"
-              className="bg-slate-50 text-gray-600 w-[100px]"
-            >
-              추가
-            </StyledButton>
-          </form>
-        </div>
-      </header>
+    <div className={classNames(styles.TodoWrapper, "w-[400px]")}>
+      <TodoHeader handleSubmit={handleSubmit} />
       {/* TodoList Area */}
-      <div className={styles.todoList}>
+      <div className="flex flex-row gap-12">
         <TodoList todos={todos} handleSubmit={handleSubmit} />
       </div>
     </div>

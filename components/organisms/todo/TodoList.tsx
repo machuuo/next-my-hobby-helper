@@ -2,12 +2,12 @@
 
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { TodoItemProps, TodoListProps } from "@/types/Item";
-import { BaseButton, StyledButton } from "@/components/atoms/button";
-import { StyledInput } from "@/components/atoms/input";
-import { useModalStore } from "@/stores/modalStore";
+import { BaseButton } from "@/components/atoms/button";
 import TodoCard from "@/components/organisms/todo/TodoCard";
+import TodoModalItem from "./TodoModalItem";
+import { useModalStore } from "@/stores/modalStore";
 import useDragAndDropEle from "@/hooks/useDragAndDropEle";
-import styles from "./TodoList.module.css";
+import styles from "./Todo.module.css";
 import classNames from "classnames";
 
 interface Props {
@@ -43,27 +43,7 @@ export default function TodoList({ todos, handleSubmit, className }: Props) {
   });
 
   const handleOpenModal = () => {
-    openModal(
-      "Todo 추가",
-      <div className={styles.todoInput}>
-        <form className="flex gap-4" onSubmit={handleSubmit}>
-          <StyledInput
-            name="todo"
-            as="textarea"
-            required
-            className="min-w-[300px] h-30"
-            placeholder="할 일 입력"
-          />
-          <StyledButton
-            type="submit"
-            size="xl"
-            className="bg-slate-50 text-gray-600 w-[100px]"
-          >
-            추가
-          </StyledButton>
-        </form>
-      </div>
-    ); // 모달 내용 추가 필요
+    openModal("Todo 추가", <TodoModalItem handleSubmit={handleSubmit} />); // 모달 내용 추가 필요
   };
 
   useEffect(() => {
@@ -73,7 +53,7 @@ export default function TodoList({ todos, handleSubmit, className }: Props) {
   }, [todos]);
 
   return (
-    <div className={classNames(styles.todoListWrapper, className)}>
+    <div className={classNames(styles.TodoListWrapper, className)}>
       {["start", "done"].map((mode) => {
         let HeadingStr;
 
@@ -88,7 +68,10 @@ export default function TodoList({ todos, handleSubmit, className }: Props) {
         );
 
         return (
-          <div key={mode} className={styles.todoList}>
+          <div
+            key={mode}
+            className="flex flex-col flex-1 gap-8 rounded-md p-3 min-w-[200px] w-[500px] h-[60vh] bg-slate-400 overflow-auto overflow-scroll [&::-webkit-scrollbar]:hidden text-neutral-800/80"
+          >
             <h2 className="self-center text-black">{HeadingStr}</h2>
             <ul
               className="flex-1"
