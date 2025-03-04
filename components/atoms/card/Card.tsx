@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { CardProps } from "@/types/Props";
-import styles from "./Card.module.css";
 import classNames from "classnames";
 
 export default function Card(props: CardProps) {
@@ -9,7 +8,10 @@ export default function Card(props: CardProps) {
 
   return (
     <div
-      className={classNames(styles.cardWrapper, className)}
+      className={classNames(
+        "flex flex-col items-center justify-center gap-3 rounded-md p-4 w-full bg-stone-400",
+        className
+      )}
       onClick={onClick}
     >
       {image && (

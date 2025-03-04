@@ -1,15 +1,3 @@
-.button {
-  position: relative;
-  cursor: pointer;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  user-select: none;
-  transition: background-color 0.1s ease;
-}
-
 /* variant */
 .default {
   background-color: var(--color-white-100);

@@ -13,11 +13,31 @@
 
 ---
 
+### 2025-03-04
+
+### **🛠️ 수정**
+
+- > Todo list data 설정 개선 (with localStorage)
+  - 기존 : todoList state를 생성하고 useEffect를 통해 todos여부 확인 후 todoList 설정
+    - props drilling한 의미가 없음
+  - 변경 : 부모 컴포넌트에서 todos 업데이트 함수를 전달받아 드래그앤드롭 시 상태 변경되도록 수정
+    - todos.tsx : handleTodos 함수 추가 (todos 업데이트)
+    - TodoList.tsx : handleTodos 호출하는 onDrop 함수 추가 (id, mode 매개변수)
+      - 드래그앤드롭 훅에서 직접 DOM 접근 및 제어를 위한 설정 속성 제거
+    - useDragAndDrop
+      - 기존 : 직접 DOM 접근하여 변경하는 형식
+      - 변경 : 상태만 변경 -> 리액트가 변경을 감지 -> 리렌더링하는 형식
+        - 드래그 시작 시 dataTransfer에 선택한 요소의 data-id 값 설정 (사전 설정 필요 - li 태그에 지정)
+        - 드래그한 요소의 data-id, 드롭한 위치의 mode를 가지고 onDrop (전달받을 함수)의 매개변수로 전달 (optional, TodoList 컴포넌트의 onDrop 함수 전달 받음)
+        - 드래그앤드롭 이벤트 완료 시 상태 변경 완료
+
+---
+
 ### 2025-03-02
 
 ### **🔄 변경**
 
-- 특정 도메인의 module.css는 통합하여 관리
+- > 특정 도메인의 module.css는 통합하여 관리
   - 기존 : Todo 도메인의 자식 컴포넌트들에 대하여 각자의 module css를 생성하여 관리
   - 변경 : Todo.module.css를 생성하여 통합적으로 관리하도록 변경
   - 추가 룰
@@ -25,9 +45,9 @@
     - 인풋, 버튼 등 특수한 스타일 변경이 필요하면 여기에 추가 X
     - 큰 범위 -> 작은 범위 순으로 작성
   - ※ Next.js에서 CSS 우선순위, 동작 방식에 따른 스타일 적용 여부 주의 (로드 순서)
-    - 공통적으로 모듈 CSS가 Webpack/Vite로 컴파일 => `<style>` 태그로 동적 삽입
-    - Next.js에서는 모듈 CSS가 Tailwind 이후 로드 => `!important` 무시함
-      - 페이지별/컴포넌트별 동적 삽입 => 클라이언트 렌더링 시점에 삽입
+    - ## 클라이언트 측 렌더링 (하이드레이션) 시점에 삽입
+      - 모듈 CSS가 Webpack/Vite로 컴파일 => `<link>` 태그(Next 13 이후)로 동적 삽입
+      - 페이지별/컴포넌트별 동적 삽입 => Next.js에서는 모듈 CSS가 Tailwind 이후 로드 => `!important` 무시함
 
 ---
 
@@ -289,7 +309,7 @@
 
 - > **_`아토믹 디자인 방법론`_ 에 맞춰 레이아웃 관련 컴포넌트 위치 이동**
   - 기존 : `/components/molecules/common` 에 위치
-  - 현재 : `/components/organisms` 로 이동
+  - 변경 : `/components/organisms` 로 이동
   - ※ 레이아웃 관련 컴포넌트 = `CommonHeader`, `CommonNav`, `CommonFooter` 등
 
 ### 참조자료

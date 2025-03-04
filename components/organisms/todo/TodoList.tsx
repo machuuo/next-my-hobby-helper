@@ -1,71 +1,62 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, useCallback } from "react";
 import { TodoItemProps, TodoListProps } from "@/types/Item";
 import { BaseButton } from "@/components/atoms/button";
 import TodoCard from "@/components/organisms/todo/TodoCard";
 import TodoModalItem from "./TodoModalItem";
 import { useModalStore } from "@/stores/modalStore";
-import useDragAndDropEle from "@/hooks/useDragAndDropEle";
+import useDragAndDropEle from "@/hooks/useDragAndDrop";
 import styles from "./Todo.module.css";
 import classNames from "classnames";
 
 interface Props {
-  todos?: TodoListProps;
+  todos: TodoListProps;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  handleTodos: (id: string, mode: TodoItemProps["status"]) => void;
   className?: string;
 }
 
-export default function TodoList({ todos, handleSubmit, className }: Props) {
-  const { openModal } = useModalStore();
-  const [todoList, setTodoList] = useState<TodoListProps>([]);
+interface HeadingMap {
+  [key: string]: string;
+}
 
-  const onDrop = useCallback(
-    (
-      dragEl: HTMLElement,
-      dropEl: HTMLElement,
-      mode?: TodoItemProps["status"]
-    ) => {
-      const draggedId = dragEl.getAttribute("data-id"); // TodoCard에 data-id 추가 필요
-      if (draggedId && mode) {
-        setTodoList((prevState) => {
-          return prevState.map((todo) =>
-            todo.id === draggedId ? { ...todo, status: mode } : todo
-          );
-        });
+export default function TodoList({
+  todos,
+  handleSubmit,
+  handleTodos,
+  className,
+}: Props) {
+  const { openModal } = useModalStore();
+
+  // 드롭 커스텀 이벤트 핸들러 -> 훅 내부 드롭 이벤트 처리 시 실행할 함수
+  const handleDropUpdate = useCallback(
+    (id: string, mode?: TodoItemProps["status"]) => {
+      if (id && mode) {
+        handleTodos(id, mode); // 상위 컴포넌트로 id와 mode 전달
       }
     },
-    [setTodoList]
+    [handleTodos]
   );
 
   const { handleDragStart, handleDrop, handleDragOver } = useDragAndDropEle({
-    onDrop,
+    onDrop: handleDropUpdate,
   });
 
-  const handleOpenModal = () => {
+  const handleOpenModal = useCallback(() => {
     openModal("Todo 추가", <TodoModalItem handleSubmit={handleSubmit} />); // 모달 내용 추가 필요
-  };
-
-  useEffect(() => {
-    if (todos) {
-      setTodoList(todos);
-    }
-  }, [todos]);
+  }, [openModal, handleSubmit]);
 
   return (
     <div className={classNames(styles.TodoListWrapper, className)}>
       {["start", "done"].map((mode) => {
-        let HeadingStr;
+        const headingMap: HeadingMap = {
+          start: "시작",
+          done: "완료",
+        };
+        const HeadingStr = headingMap[mode];
 
-        if (mode === "start") {
-          HeadingStr = "시작";
-        } else {
-          HeadingStr = "완료";
-        }
-
-        const filteredTodoList = todoList.filter(
-          (todo) => todo.status === mode
-        );
+        const filteredTodoList = todos.filter((todo) => todo.status === mode);
 
         return (
           <div
@@ -75,19 +66,23 @@ export default function TodoList({ todos, handleSubmit, className }: Props) {
             <h2 className="self-center text-black">{HeadingStr}</h2>
             <ul
               className="flex-1"
-              data-droppable
               onDrop={(e) => {
                 handleDrop(e, mode as TodoItemProps["status"]);
               }}
               onDragOver={handleDragOver}
             >
               {filteredTodoList.map((todo) => (
-                <li key={todo.id} draggable onDragStart={handleDragStart}>
+                <li
+                  key={todo.id}
+                  draggable
+                  onDragStart={handleDragStart}
+                  data-id={todo.id}
+                >
                   <TodoCard {...todo} data-id={todo.id} />
                 </li>
               ))}
               {mode === "start" && (
-                <li data-fixed>
+                <li>
                   <BaseButton
                     className={styles.newTodoButton}
                     onClick={handleOpenModal}

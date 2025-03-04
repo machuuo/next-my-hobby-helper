@@ -1,7 +1,6 @@
 "use client";
 
 import { ButtonProps } from "@/types/Props";
-import styles from "../atoms.module.css";
 import classNames from "classnames";
 
 /**
@@ -19,7 +18,13 @@ export default function BaseButton({
   ...rest
 }: ButtonProps) {
   return (
-    <button className={classNames(styles.button, className)} {...rest}>
+    <button
+      className={classNames(
+        "relative cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis select-none transition-colors duration-100 ease-in",
+        className
+      )}
+      {...rest}
+    >
       {children}
     </button>
   );

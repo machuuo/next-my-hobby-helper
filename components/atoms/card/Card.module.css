@@ -1,3 +1,0 @@
-.cardWrapper {
-  @apply flex flex-col items-center justify-center gap-3 rounded-md p-4 w-full bg-stone-400;
-}

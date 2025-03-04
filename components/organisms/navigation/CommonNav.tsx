@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
-
-import { Menu } from "@/types/Menu";
-import styles from "./CommonNav.module.css";
 import Link from "next/link";
+import { Menu } from "@/types/Menu";
+import { usePathname } from "next/navigation";
 import navJson from "@/data/nav.json";
 
 function CommonNav() {
@@ -13,8 +11,8 @@ function CommonNav() {
   const path = usePathname();
 
   return (
-    <nav className={styles.navigation}>
-      <div className={styles.menu}>
+    <nav className="flex flex-row items-center justify-center w-full h-[50px] gap-8 border-b-[5px] border-indigo-900">
+      <div className="flex flex-row items-center h-full gap-[15px] no-underline text-white-300 font-medium">
         {menus.map((menu: Menu) => (
           <Link
             href={menu.path}
@@ -23,7 +21,7 @@ function CommonNav() {
               path.startsWith(menu.path) ? "bg-blue-700 text-white" : ""
             }`}
           >
-            <span className={styles.label}>{menu.label}</span>
+            <span>{menu.label}</span>
           </Link>
         ))}
       </div>
