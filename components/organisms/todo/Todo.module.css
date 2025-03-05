@@ -28,3 +28,7 @@ default : 기본/고정 양식만 지정
 .newTodoButton {
   @apply w-full p-3 border-[3px] border-dotted border-slate-600 rounded-lg bg-none text-white bg-opacity-50;
 }
+
+.todoCheckbox {
+  @apply w-[25px] h-[25px];
+}

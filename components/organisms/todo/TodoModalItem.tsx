@@ -1,13 +1,11 @@
-import { FormEvent } from "react";
 import { StyledButton } from "@/components/atoms/button";
 import { StyledInput } from "@/components/atoms/input";
+import { useTodoStore } from "@/stores/todoStore";
 import styles from "./Todo.module.css";
 
-interface Props {
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-}
+export default function TodoModalItem() {
+  const { handleSubmit } = useTodoStore();
 
-export default function TodoModalItem({ handleSubmit }: Props) {
   return (
     <div className="flex flex-row justify-center w-full">
       <form className="flex gap-4" onSubmit={handleSubmit}>

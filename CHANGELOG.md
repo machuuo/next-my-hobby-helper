@@ -13,6 +13,30 @@
 
 ---
 
+### 2025-03-05
+
+### **✅ 추가**
+
+- > Todo list 상태 변경 추가
+
+  - 체크박스 클릭 시 상태 변경
+    - `todoStore - updateTodoStatus`, `onChange` 활용하여 상태 변경
+
+### **🔄 변경**
+
+- > `zustand`로 상태 관리
+
+  - todo 도메인 용 store 추가 (`/stores/todoStore.ts`) (props drilling 대부분 제거)
+    - state
+      - todos : 투두 리스트
+    - action
+      - setTodos : 투두 리스트 설정
+      - loadTodos : localStorage에 저장된 투두 리스트 설정
+      - handleSubmit : 신규 todo 추가 (form 형식)
+      - updateTodo : 투두 아이템 수정(드래그앤드롭, 체크박스 이벤트로 todo status 수정 목적)
+
+---
+
 ### 2025-03-04
 
 ### **🛠️ 수정**

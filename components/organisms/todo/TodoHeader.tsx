@@ -1,13 +1,11 @@
-import { FormEvent } from "react";
+import { useTodoStore } from "@/stores/todoStore";
 import { StyledButton } from "@/components/atoms/button";
 import { StyledInput } from "@/components/atoms/input";
 import styles from "./Todo.module.css";
 
-interface Props {
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-}
+const TodoHeader = () => {
+  const { handleSubmit } = useTodoStore();
 
-const TodoHeader = ({ handleSubmit }: Props) => {
   return (
     <header className="flex flex-col gap-4 items-center justify-center z-10 w-full min-h-[150px] max-h-[250px] bg-blue-500 text-white">
       {/* <h2>{new Date().toISOString()}</h2> */}

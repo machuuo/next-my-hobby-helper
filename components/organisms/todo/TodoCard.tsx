@@ -4,8 +4,7 @@ import TodoItem from "./TodoItem";
 import classNames from "classnames";
 
 export default function TodoCard(props: TodoItemProps) {
-  const { id, tags, content, status, createdAt, dueDate, priority, updatedAt } =
-    props;
+  const { tags, status, priority } = props;
 
   const priorityColor = {
     high: "border-red-500",

@@ -1,42 +1,31 @@
 "use client";
 
-import { FormEvent, useCallback } from "react";
-import { TodoItemProps, TodoListProps } from "@/types/Item";
+import { useCallback } from "react";
+import { TodoItemProps } from "@/types/Item";
 import { BaseButton } from "@/components/atoms/button";
-import TodoCard from "@/components/organisms/todo/TodoCard";
-import TodoModalItem from "./TodoModalItem";
+import { useTodoStore } from "@/stores/todoStore";
 import { useModalStore } from "@/stores/modalStore";
 import useDragAndDropEle from "@/hooks/useDragAndDrop";
+import TodoCard from "@/components/organisms/todo/TodoCard";
+import TodoModalItem from "./TodoModalItem";
 import styles from "./Todo.module.css";
-import classNames from "classnames";
-
-interface Props {
-  todos: TodoListProps;
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  handleTodos: (id: string, mode: TodoItemProps["status"]) => void;
-  className?: string;
-}
 
 interface HeadingMap {
   [key: string]: string;
 }
 
-export default function TodoList({
-  todos,
-  handleSubmit,
-  handleTodos,
-  className,
-}: Props) {
+export default function TodoList() {
   const { openModal } = useModalStore();
+  const { todos, updateTodoStatus } = useTodoStore();
 
   // 드롭 커스텀 이벤트 핸들러 -> 훅 내부 드롭 이벤트 처리 시 실행할 함수
   const handleDropUpdate = useCallback(
     (id: string, mode?: TodoItemProps["status"]) => {
       if (id && mode) {
-        handleTodos(id, mode); // 상위 컴포넌트로 id와 mode 전달
+        updateTodoStatus(id, mode); // 상위 컴포넌트로 id와 mode 전달
       }
     },
-    [handleTodos]
+    [updateTodoStatus]
   );
 
   const { handleDragStart, handleDrop, handleDragOver } = useDragAndDropEle({
@@ -44,11 +33,11 @@ export default function TodoList({
   });
 
   const handleOpenModal = useCallback(() => {
-    openModal("Todo 추가", <TodoModalItem handleSubmit={handleSubmit} />); // 모달 내용 추가 필요
-  }, [openModal, handleSubmit]);
+    openModal("Todo 추가", <TodoModalItem />); // 모달 내용 추가 필요
+  }, [openModal]);
 
   return (
-    <div className={classNames(styles.TodoListWrapper, className)}>
+    <div className={styles.TodoListWrapper}>
       {["start", "done"].map((mode) => {
         const headingMap: HeadingMap = {
           start: "시작",

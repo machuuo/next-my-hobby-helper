@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckBoxProps } from "@/types/Props";
+import classNames from "classnames";
 
 export default function BaseCheckBox({
   checked,
@@ -12,7 +13,10 @@ export default function BaseCheckBox({
 }: CheckBoxProps) {
   const [isChecked, setIsChecked] = useState<boolean>(checked || false);
 
-  const handleChange = () => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(e);
+    }
     setIsChecked((prevState) => !prevState);
   };
 
@@ -23,10 +27,10 @@ export default function BaseCheckBox({
     <div>
       <input
         type="checkbox"
+        className={classNames(className)}
         id={checkboxId}
         checked={isChecked}
         onChange={handleChange}
-        className="w-[25px] h-[25px]"
         {...rest}
       />
       {label && <label htmlFor={checkboxId}>{label}</label>}
