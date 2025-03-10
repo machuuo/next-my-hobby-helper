@@ -65,8 +65,3 @@ export interface ModalProps {
   title?: string;
   children?: React.ReactNode;
 }
-
-// Next ^15 page params
-export interface PageProps {
-  params: Promise<{ page: string }>;
-}

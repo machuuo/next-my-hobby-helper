@@ -1,0 +1,40 @@
+[
+  {
+    "id": "todo",
+    "path": "/todo",
+    "label": "오늘의할일",
+    "searchValue": "todo",
+    "subMenus": [
+      {
+        "id": "TodoList",
+        "path": "/todo/list",
+        "label": "목록",
+        "searchValue": "todolist"
+      },
+      {
+        "id": "TodoOptions",
+        "path": "/todo/options",
+        "label": "관리",
+        "searchValue": "todooptions"
+      }
+    ]
+  },
+  {
+    "id": "notice",
+    "path": "/notice",
+    "label": "공지사항",
+    "searchValue": "notice"
+  },
+  {
+    "id": "trade",
+    "path": "/trade",
+    "label": "교역",
+    "searchValue": "trade"
+  },
+  {
+    "id": "auction",
+    "path": "/auction",
+    "label": "경매장",
+    "searchValue": "auction"
+  }
+]

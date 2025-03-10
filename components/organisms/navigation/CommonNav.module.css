@@ -1,0 +1,64 @@
+.nav {
+  @apply flex flex-row items-center justify-center w-full h-[50px] gap-8 border-b-[5px] border-indigo-900;
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.menuItem {
+  position: relative;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.menuButton:hover {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+.arrow {
+  font-size: 0.8rem;
+}
+
+.subMenu {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #444;
+  min-width: 150px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.subMenuItem {
+  padding: 0.5rem 1rem;
+}
+
+.subMenuLink {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.subMenuLink:hover {
+  background-color: #666;
+  border-radius: 4px;
+}

@@ -1,7 +1,7 @@
-export interface Menu {
+export interface MenuProps {
   id: string;
   path: string;
   label: string;
   searchValue: string;
-  isActive: boolean;
+  subMenus?: MenuProps[];
 }
