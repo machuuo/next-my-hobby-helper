@@ -49,7 +49,7 @@ export function getSubMenus(): SubMenuSignatures {
         const componentName = subMenu.id;
         try {
           subAcc[subMenu.id] = dynamic(() =>
-            import(`@/components/organisms/${menu.id}/${componentName}`).then(
+            import(`@/components/pages/${menu.id}/${componentName}`).then(
               (mod) => mod.default
             )
           );

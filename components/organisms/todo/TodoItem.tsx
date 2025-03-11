@@ -1,7 +1,7 @@
 import { TodoItemProps } from "@/types/Item";
 import { useTodoStore } from "@/stores/todoStore";
 import BaseCheckBox from "@/components/atoms/checkbox/BaseCheckBox";
-import styles from "./Todo.module.css";
+import styles from "./TodoItem.module.css";
 
 export default function TodoItem(props: TodoItemProps) {
   const { id, content, status } = props;
@@ -15,9 +15,9 @@ export default function TodoItem(props: TodoItemProps) {
   };
 
   return (
-    <div className="flex flex-row self-start gap-3">
+    <div className={styles.item}>
       <BaseCheckBox
-        className={styles.todoCheckbox}
+        className={styles.checkbox}
         checked={isCompleted}
         onChange={handleCheckBox}
       />

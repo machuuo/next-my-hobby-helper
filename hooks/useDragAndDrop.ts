@@ -5,7 +5,7 @@ import { useCallback } from "react";
 
 interface Props {
   onDragStart?: (dragEl: HTMLElement) => void; // 드래그 시작 시 호출
-  onDrop?: (id: string, mode?: TodoItemProps["status"]) => void; // 드롭 완료 시 호출
+  onDrop?: (id: string, mode: TodoItemProps["status"]) => void; // 드롭 완료 시 호출
 }
 
 export default function useDragAndDropEle({ onDragStart, onDrop }: Props) {

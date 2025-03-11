@@ -1,0 +1,11 @@
+.modal {
+  @apply flex flex-row justify-center w-full;
+}
+
+.form {
+  @apply flex gap-4;
+}
+
+.button {
+  @apply bg-slate-50 text-gray-600 w-[100px];
+}

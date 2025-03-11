@@ -1,0 +1,15 @@
+.column {
+  @apply flex flex-col flex-1 gap-2 rounded-md p-3 min-w-[200px] w-[500px] h-[60vh] bg-slate-400 overflow-auto;
+}
+
+.heading {
+  @apply text-center text-black;
+}
+
+.list {
+  @apply flex-1;
+}
+
+.addButton {
+  @apply w-full;
+}

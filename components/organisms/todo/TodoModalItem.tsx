@@ -1,14 +1,14 @@
 import { StyledButton } from "@/components/atoms/button";
 import { StyledInput } from "@/components/atoms/input";
 import { useTodoStore } from "@/stores/todoStore";
-import styles from "./Todo.module.css";
+import styles from "./TodoModalItem.module.css";
 
 export default function TodoModalItem() {
   const { handleSubmit } = useTodoStore();
 
   return (
-    <div className="flex flex-row justify-center w-full">
-      <form className="flex gap-4" onSubmit={handleSubmit}>
+    <div className={styles.modal}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <StyledInput
           name="todo"
           as="textarea"
@@ -16,7 +16,7 @@ export default function TodoModalItem() {
           className={styles.todoInput}
           placeholder="할 일 입력"
         />
-        <StyledButton type="submit" size="xl" className={styles.todoButton}>
+        <StyledButton type="submit" size="xl" className={styles.button}>
           추가
         </StyledButton>
       </form>

@@ -1,0 +1,7 @@
+.card {
+  @apply flex flex-col items-center gap-3 rounded-md p-3 my-2 border bg-white shadow-md hover:cursor-pointer;
+}
+
+.done {
+  @apply opacity-60;
+}
