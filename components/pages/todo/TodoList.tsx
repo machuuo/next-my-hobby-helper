@@ -5,10 +5,13 @@ import { TodoItemProps } from "@/types/Item";
 import { useTodoStore } from "@/stores/todoStore";
 import { useModalStore } from "@/stores/modalStore";
 import useDragAndDropEle from "@/hooks/useDragAndDrop";
-import TodoModalItem from "@/components/organisms/todo/TodoModalItem";
-import { TodoListTemplate } from "@/components/templates/TodoListTemplate";
-import TodoColumn from "@/components/organisms/todo/TodoColumn";
-import { TodoHeader } from "@/components/organisms/todo/TodoHeader";
+import { TodoTemplate } from "@/components/templates/TodoTemplate";
+import {
+  TodoHeader,
+  TodoColumn,
+  TodoModalItem,
+} from "@/components/organisms/todo";
+import styles from "./TodoList.module.css";
 
 export default function TodoList() {
   const { openModal } = useModalStore();
@@ -26,7 +29,7 @@ export default function TodoList() {
   const handleDropUpdate = useCallback(
     (id: string, mode?: TodoItemProps["status"]) => {
       if (id && mode) {
-        updateTodoStatus(id, mode); // 상위 컴포넌트로 id와 mode 전달
+        updateTodoStatus(id, mode);
       }
     },
     [updateTodoStatus]
@@ -40,23 +43,31 @@ export default function TodoList() {
     openModal("Todo 추가", <TodoModalItem />); // 모달 내용 추가 필요
   }, [openModal]);
 
+  const todoList: Record<TodoItemProps["status"], TodoItemProps[]> = {
+    start: todos.filter((todo) => todo.status === "start"),
+    done: todos.filter((todo) => todo.status === "done"),
+  };
+
+  const modes: TodoItemProps["status"][] = ["start", "done"];
+
   return (
-    <TodoListTemplate
-      todoHeader={<TodoHeader />}
-      todoColumn={["start", "done"].map((mode) => {
-        const filteredTodoList = todos.filter((todo) => todo.status === mode);
-        return (
-          <TodoColumn
-            key={mode}
-            mode={mode as TodoItemProps["status"]}
-            todos={filteredTodoList}
-            onDragStart={handleDragStart}
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            onAddTodo={handleOpenModal}
-          />
-        );
-      })}
-    />
+    <>
+      <TodoTemplate>
+        <TodoHeader />
+        <div className={styles.columns}>
+          {modes.map((mode) => (
+            <TodoColumn
+              key={mode}
+              mode={mode as TodoItemProps["status"]}
+              todos={todoList[mode] || []}
+              onDragStart={handleDragStart}
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onAddTodo={handleOpenModal}
+            />
+          ))}
+        </div>
+      </TodoTemplate>
+    </>
   );
 }

@@ -11,5 +11,5 @@
 }
 
 .addButton {
-  @apply w-full;
+  @apply w-full p-3 border-[3px] border-dotted border-slate-600 rounded-lg bg-none text-white bg-opacity-50;
 }

@@ -4,7 +4,7 @@ import { StyledInput } from "@/components/atoms/input";
 import styles from "./TodoHeader.module.css";
 import { getTodayDate } from "@/lib/util";
 
-export const TodoHeader = () => {
+const TodoHeader = () => {
   const { handleSubmit } = useTodoStore();
 
   const date = getTodayDate();
@@ -29,3 +29,5 @@ export const TodoHeader = () => {
     </header>
   );
 };
+
+export default TodoHeader;
