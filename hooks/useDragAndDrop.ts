@@ -22,11 +22,11 @@ export default function useDragAndDropEle({ onDragStart, onDrop }: Props) {
   };
 
   const handleDrop = useCallback(
-    (e: React.DragEvent<HTMLElement>, mode: TodoItemProps["status"]) => {
+    (e: React.DragEvent<HTMLElement>, mode: string) => {
       e.preventDefault();
       const draggedId = e.dataTransfer.getData("text/plain");
       if (draggedId && onDrop) {
-        onDrop(draggedId, mode);
+        onDrop(draggedId, mode as "start" | "done");
       }
       // onDrop?.(draggedId, mode);
     },

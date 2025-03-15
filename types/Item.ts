@@ -1,12 +1,15 @@
-export interface TodoItemProps {
+export interface TodoTemplateProps {
   id: string;
-  tags: string[];
   content: string;
+  priority: "high" | "medium" | "low";
   status: "start" | "done";
-  readonly createdAt: Date;
-  dueDate?: Date;
-  priority?: "high" | "medium" | "low";
-  updatedAt?: Date;
+  isSelected?: boolean;
+}
+
+export type TodoTemplateListProps = TodoTemplateProps[];
+
+export interface TodoItemProps extends TodoTemplateProps {
+  date?: Date;
 }
 
 export type TodoListProps = TodoItemProps[];

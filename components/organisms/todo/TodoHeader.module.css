@@ -1,5 +1,5 @@
 .header {
-  @apply flex flex-col gap-4 items-center justify-center w-full min-h-[150px] max-h-[250px] bg-blue-500 text-white;
+  @apply flex flex-col gap-4 items-center justify-center w-full min-h-[150px] max-h-[250px];
 }
 
 .contents {

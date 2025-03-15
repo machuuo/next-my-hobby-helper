@@ -11,26 +11,23 @@ import {
   TodoColumn,
   TodoModalItem,
 } from "@/components/organisms/todo";
-import styles from "./TodoList.module.css";
 
 export default function TodoList() {
   const { openModal } = useModalStore();
-  const { todos, loadTodos, updateTodoStatus } = useTodoStore();
+  const { todos, loadTodos, handleSubmit, updateTodoStatus } = useTodoStore();
 
   useEffect(() => {
     loadTodos();
   }, [loadTodos]);
 
   useEffect(() => {
-    if (todos.length) localStorage.setItem("data", JSON.stringify(todos));
+    if (todos.length) localStorage.setItem("today", JSON.stringify(todos));
   }, [todos]);
 
   // 드롭 커스텀 이벤트 핸들러 -> 훅 내부 드롭 이벤트 처리 시 실행할 함수
   const handleDropUpdate = useCallback(
-    (id: string, mode?: TodoItemProps["status"]) => {
-      if (id && mode) {
-        updateTodoStatus(id, mode);
-      }
+    (id: string, mode: TodoItemProps["status"]) => {
+      updateTodoStatus(id, mode);
     },
     [updateTodoStatus]
   );
@@ -51,23 +48,24 @@ export default function TodoList() {
   const modes: TodoItemProps["status"][] = ["start", "done"];
 
   return (
-    <>
-      <TodoTemplate>
-        <TodoHeader />
-        <div className={styles.columns}>
-          {modes.map((mode) => (
-            <TodoColumn
-              key={mode}
-              mode={mode as TodoItemProps["status"]}
-              todos={todoList[mode] || []}
-              onDragStart={handleDragStart}
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              onAddTodo={handleOpenModal}
-            />
-          ))}
-        </div>
-      </TodoTemplate>
-    </>
+    <TodoTemplate>
+      <TodoHeader
+        inputLabel="추가할 일 입력 (반복 X)"
+        onSubmit={handleSubmit}
+      />
+      <div className="flex flex-row gap-12">
+        {modes.map((mode) => (
+          <TodoColumn
+            key={mode}
+            mode={mode as TodoItemProps["status"]}
+            todos={todoList[mode] || []}
+            onDragStart={handleDragStart}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onAddTodo={handleOpenModal}
+          />
+        ))}
+      </div>
+    </TodoTemplate>
   );
 }

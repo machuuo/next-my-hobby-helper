@@ -5,15 +5,12 @@ import TodoCard from "@/components/organisms/todo/TodoCard";
 import styles from "./TodoColumn.module.css";
 
 interface TodoColumnProps {
-  mode: TodoItemProps["status"];
+  mode?: string;
   todos: TodoItemProps[];
-  onDragStart: (e: React.DragEvent<HTMLElement>) => void;
-  onDrop: (
-    e: React.DragEvent<HTMLElement>,
-    mode: TodoItemProps["status"]
-  ) => void;
-  onDragOver: (e: React.DragEvent<HTMLElement>) => void;
-  onAddTodo: () => void;
+  onDragStart?: (e: React.DragEvent<HTMLElement>) => void;
+  onDrop?: (e: React.DragEvent<HTMLElement>, mode: string) => void;
+  onDragOver?: (e: React.DragEvent<HTMLElement>) => void;
+  onAddTodo?: () => void;
 }
 
 const headingMap: { [key: string]: string } = {
@@ -31,10 +28,12 @@ const TodoColumn = ({
 }: TodoColumnProps) => {
   return (
     <div className={styles.column}>
-      <Heading className={styles.heading}>{headingMap[mode]}</Heading>
+      <Heading className={styles.heading}>
+        {headingMap[mode as TodoItemProps["status"]]}
+      </Heading>
       <ul
         className={styles.list}
-        onDrop={(e) => onDrop(e, mode)}
+        onDrop={(e) => onDrop?.(e, mode as TodoItemProps["status"])}
         onDragOver={onDragOver}
       >
         {todos.map((todo) => (
