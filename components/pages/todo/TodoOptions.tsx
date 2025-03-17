@@ -6,7 +6,7 @@ import { useTodoStore } from "@/stores/todoStore";
 import { useEffect } from "react";
 
 export default function TodoOptions() {
-  const { todoTemplates, loadTodoTemplates, handleSubmitTemplate } =
+  const { todoTemplates, loadTodoTemplates, handleSubmitTemplateItems } =
     useTodoStore();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function TodoOptions() {
       <TodoHeader
         showDate={false}
         inputLabel="반복할 일 입력"
-        onSubmit={handleSubmitTemplate}
+        onSubmit={handleSubmitTemplateItems}
       />
       <div className="flex flex-row">
         <TodoColumn todos={todoTemplates} />

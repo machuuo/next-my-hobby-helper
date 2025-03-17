@@ -1,0 +1,19 @@
+.dropdown {
+  @apply relative inline-block;
+}
+
+.button {
+  @apply bg-transparent border-none cursor-pointer p-[5px_10px] text-gray-800;
+}
+
+.menu {
+  @apply absolute top-full right-0 bg-white border border-gray-200 rounded-md list-none p-0 py-[5px] m-0 shadow-md z-10 min-w-[100px];
+}
+
+.menuItem {
+  @apply p-0;
+}
+
+.menuButton {
+  @apply bg-transparent border-none cursor-pointer w-full p-[5px_10px] text-left text-gray-800 hover:bg-gray-100;
+}

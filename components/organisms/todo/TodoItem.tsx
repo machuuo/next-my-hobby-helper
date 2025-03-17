@@ -1,11 +1,23 @@
 import { TodoItemProps } from "@/types/Item";
 import { useTodoStore } from "@/stores/todoStore";
 import BaseCheckBox from "@/components/atoms/checkbox/BaseCheckBox";
+import Dropdown from "../dropdown/Dropdown";
 import styles from "./TodoItem.module.css";
 
-export default function TodoItem(props: TodoItemProps) {
-  const { id, content, status } = props;
-  const { updateTodoStatus } = useTodoStore();
+export default function TodoItem({ id, content, status }: TodoItemProps) {
+  const { updateTodoStatus, deleteTemplateItems, deleteTemplates } =
+    useTodoStore();
+
+  const dropdownItems = [
+    // {
+    //   label: "수정",
+    //   onClick: () => deleteTemplateItems && deleteTemplateItems(id),
+    // },
+    {
+      label: "삭제",
+      onClick: () => deleteTemplateItems && deleteTemplateItems(id),
+    },
+  ];
 
   const isCompleted = status === "start" ? false : true;
 
@@ -22,6 +34,11 @@ export default function TodoItem(props: TodoItemProps) {
         onChange={handleCheckBox}
       />
       <p className="text-black">{content}</p>
+      <Dropdown
+        buttonContent="⋮"
+        items={dropdownItems}
+        className={styles.dropdownPos}
+      />
     </div>
   );
 }

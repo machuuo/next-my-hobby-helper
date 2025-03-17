@@ -12,10 +12,13 @@ interface State {
 
 interface Action {
   setTodoTemplates: (templates: TodoTemplateListProps) => void;
-  setTodos: (todos: TodoListProps) => void;
   loadTodoTemplates: () => void;
+  handleSubmitTemplateItems: (e: React.FormEvent<HTMLFormElement>) => void;
+  deleteTemplateItems: (id: string) => void;
+  updateTemplateItems: (id: string, content: string) => void;
+  deleteTemplates: (templateId: string) => void;
+  setTodos: (todos: TodoListProps) => void;
   loadTodos: () => void;
-  handleSubmitTemplate: (e: React.FormEvent<HTMLFormElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   updateTodoStatus: (id: string, mode: TodoItemProps["status"]) => void;
 }
@@ -37,7 +40,7 @@ export const useTodoStore = create<State & Action>((set) => ({
       }
     }
   },
-  handleSubmitTemplate: (e) => {
+  handleSubmitTemplateItems: (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const todo = formData.get("todo")?.toString();
@@ -60,6 +63,13 @@ export const useTodoStore = create<State & Action>((set) => ({
     });
     e.currentTarget.reset();
   },
+  deleteTemplateItems: (id) => {
+    set((state) => ({
+      todoTemplates: state.todoTemplates.filter((item) => item.id !== id),
+    }));
+  },
+  updateTemplateItems: (id, content) => {},
+  deleteTemplates(templateId) {},
   // Today todos
   todos: [],
   setTodos: (todos) => {
@@ -70,10 +80,13 @@ export const useTodoStore = create<State & Action>((set) => ({
       const templates = JSON.parse(localStorage.getItem("templates") || "[]");
       const todayTodos = JSON.parse(localStorage.getItem("today") || "[]");
 
-      const uniqueTodos = [...templates, ...todayTodos].reduce((acc, cur) => {
-        acc[cur.id] = cur;
-        return acc;
-      });
+      const uniqueTodos = [...templates, ...todayTodos].reduce(
+        (acc: Record<string, TodoItemProps>, cur) => {
+          acc[cur.id] = cur;
+          return acc;
+        },
+        {}
+      );
 
       set({ todos: Object.values(uniqueTodos) });
     } catch (error) {

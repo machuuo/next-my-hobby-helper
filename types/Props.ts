@@ -47,6 +47,13 @@ export interface CheckBoxProps
   className?: string;
 }
 
+// dropdown props
+export interface DropdownProps {
+  buttonContent: React.ReactNode;
+  items: { label: string; onClick: () => void }[];
+  className?: string;
+}
+
 // card props
 export interface CardProps {
   title: string;

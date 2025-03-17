@@ -1,7 +1,11 @@
 .item {
-  @apply flex flex-row self-start gap-3;
+  @apply flex flex-row items-center justify-between w-full gap-3;
 }
 
 .checkbox {
   @apply w-[25px] h-[25px];
+}
+
+.dropdownPos {
+  @apply ml-auto;
 }
