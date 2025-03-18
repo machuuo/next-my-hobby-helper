@@ -14,7 +14,14 @@ import {
 
 export default function TodoList() {
   const { openModal } = useModalStore();
-  const { todos, loadTodos, handleSubmit, updateTodoStatus } = useTodoStore();
+  const {
+    todos,
+    loadTodos,
+    handleSubmit,
+    toggleStatus,
+    updateTodoItems,
+    deleteTodoItems,
+  } = useTodoStore();
 
   useEffect(() => {
     loadTodos();
@@ -27,9 +34,9 @@ export default function TodoList() {
   // 드롭 커스텀 이벤트 핸들러 -> 훅 내부 드롭 이벤트 처리 시 실행할 함수
   const handleDropUpdate = useCallback(
     (id: string, mode: TodoItemProps["status"]) => {
-      updateTodoStatus(id, mode);
+      toggleStatus(id, mode);
     },
-    [updateTodoStatus]
+    [toggleStatus]
   );
 
   const { handleDragStart, handleDrop, handleDragOver } = useDragAndDropEle({
@@ -37,7 +44,7 @@ export default function TodoList() {
   });
 
   const handleOpenModal = useCallback(() => {
-    openModal("Todo 추가", <TodoModalItem />); // 모달 내용 추가 필요
+    openModal("Todo 추가", <TodoModalItem buttonLabel="추가" context="list" />); // 모달 내용 추가 필요
   }, [openModal]);
 
   const todoList: Record<TodoItemProps["status"], TodoItemProps[]> = {
@@ -59,10 +66,13 @@ export default function TodoList() {
             key={mode}
             mode={mode as TodoItemProps["status"]}
             todos={todoList[mode] || []}
+            context="list"
             onDragStart={handleDragStart}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onAddTodo={handleOpenModal}
+            onUpdateTodo={updateTodoItems}
+            onDeleteTodo={deleteTodoItems}
           />
         ))}
       </div>

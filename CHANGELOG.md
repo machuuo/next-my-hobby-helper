@@ -13,6 +13,48 @@
 
 ---
 
+### 2025-03-18
+
+### **✅ 추가**
+
+- > todoTemplatesStore 생성
+- > todos 수정, 삭제 기능 추가
+  - todosTemplate과 todayTodos를 드롭다운을 활용하여 관리 가능
+  - todosTemplate
+    - 오늘의할일 - 관리에서 관리 가능
+    - 오늘의할일 - 목록에서 관리 불가 (드롭다운 조건부 렌더링)
+  - todayTodos
+    - 오늘의할일 - 목록에서만 관리 가능
+
+### **🔄 변경**
+
+- > todos, todoTemplates 분기
+  - todos는 todoStore로 유지
+- > TodoList, TodoOptions 컴포넌트 수정
+  - 최상위 컴포넌트에서 데이터, 이벤트 설정 후 props drilling 함
+  - 모달 컴포넌트는 최상위에 종속적이지 않아서 props drilling에서 제외함
+- > TodoModalItem 수정
+  - props 수정
+    - buttonLabel : 버튼 텍스트
+    - `context` : 어떤 최상위 컴포넌트(TodoList, TodoOptions)로부터 왔는지 확인값
+    - todoId : 수정할 todo가 있을 경우 사용할 id값
+  - todo 도메인에 속하지만, props 의존도가 너무 높아지고 설정해야할 props가 많아질 것 같아서 todayTodos, todoTemplates 각각 수정하는 함수는 store에서 가져옴
+  - form 태그는 유지 (향후 백단에 저장하는 방식도 할 생각이 있어서)
+- > TodoColumn 수정
+  - 최상위 컴포넌트로부터 props를 받은 후 각 컴포넌트 및 요소에 전달 (연결고리 역할)
+- > TodoCard 수정
+  - props 전달
+- > TodoItem 수정
+  - 직접적인 수정, 삭제 기능과 관련된 영역으로 변경 (모든 Todo를 관리할 수 있어야함)
+  - `조건부 렌더링`을 통해 특정 영역에서 드롭다운 메뉴로 각자의 todos를 관리할 수 있도록 기능 수정
+  - 메뉴 아이템을 직접 생성하여 사용
+    - 후에 데이터베이스에서 호출하는 방식으로 변경할 생각
+  - props 수정
+    - context : 수정, 삭제할 대상을 정하기 위한 플래그
+    - `isRepeat` : `todayTodos`와 `todoTemplates` 상태를 구분하여 드롭다운 메뉴 표츌 여부에 사용할 플래그
+    - onDelete : 아이템 삭제 핸들러
+- ***
+
 ### 2025-03-17
 
 ### **✅ 추가**
@@ -148,7 +190,7 @@
 - > Todo list 상태 변경 추가
 
   - 체크박스 클릭 시 상태 변경
-    - `todoStore - updateTodoStatus`, `onChange` 활용하여 상태 변경
+    - `todoStore - toggleStatus`, `onChange` 활용하여 상태 변경
 
 ### **🔄 변경**
 

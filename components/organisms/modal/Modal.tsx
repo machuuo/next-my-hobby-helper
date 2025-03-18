@@ -19,6 +19,7 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
     } else {
       document.body.style.overflow = "auto";
     }
+
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -40,7 +41,9 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
           ×
         </BaseButton>
         {/* 모달 제목 */}
-        {title && <h2 className="text-xl font-semibold my-6">{title}</h2>}
+        {title && (
+          <h2 className="text-xl font-semibold my-6 text-gray-800">{title}</h2>
+        )}
         {/* 모달 내용 */}
         <div>{children}</div>
       </div>

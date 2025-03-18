@@ -3,6 +3,7 @@ export interface TodoTemplateProps {
   content: string;
   priority: "high" | "medium" | "low";
   status: "start" | "done";
+  isRepeat?: boolean;
   isSelected?: boolean;
 }
 

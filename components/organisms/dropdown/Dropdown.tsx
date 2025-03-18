@@ -1,9 +1,9 @@
 "use client";
 
-import { DropdownProps } from "@/types/Props";
-
-import styles from "./Dropdown.module.css";
 import { useEffect, useRef, useState } from "react";
+import { DropdownProps } from "@/types/Props";
+import { BaseButton } from "@/components/atoms/button";
+import styles from "./Dropdown.module.css";
 
 export default function Dropdown({
   buttonContent,
@@ -36,22 +36,22 @@ export default function Dropdown({
 
   return (
     <div className={`${styles.dropdown} ${className || ""}`} ref={dropdownRef}>
-      <button className={styles.button} onClick={toggleDropdown}>
+      <BaseButton className={styles.button} onClick={toggleDropdown}>
         {buttonContent}
-      </button>
+      </BaseButton>
       {isOpen && (
         <ul className={styles.menu}>
           {items.map((item, index) => (
             <li key={index} className={styles.menuItem}>
-              <button
+              <BaseButton
                 onClick={() => {
                   item.onClick();
-                  setIsOpen(false); // 항목 클릭 시 닫기
+                  setIsOpen(false);
                 }}
                 className={styles.menuButton}
               >
                 {item.label}
-              </button>
+              </BaseButton>
             </li>
           ))}
         </ul>

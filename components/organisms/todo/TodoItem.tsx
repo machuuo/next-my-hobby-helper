@@ -1,21 +1,39 @@
 import { TodoItemProps } from "@/types/Item";
-import { useTodoStore } from "@/stores/todoStore";
+import { useModalStore } from "@/stores/modalStore";
+import TodoModalItem from "./TodoModalItem";
 import BaseCheckBox from "@/components/atoms/checkbox/BaseCheckBox";
-import Dropdown from "../dropdown/Dropdown";
+import Dropdown from "@/components/organisms/dropdown/Dropdown";
 import styles from "./TodoItem.module.css";
 
-export default function TodoItem({ id, content, status }: TodoItemProps) {
-  const { updateTodoStatus, deleteTemplateItems, deleteTemplates } =
-    useTodoStore();
+interface Props extends TodoItemProps {
+  context: "list" | "options";
+  onDelete: (id: string) => void;
+  onUpdateStatus?: (id: string, mode: TodoItemProps["status"]) => void;
+}
+
+export default function TodoItem({
+  id,
+  content,
+  status,
+  context,
+  isRepeat,
+  onDelete,
+  onUpdateStatus,
+}: Props) {
+  const { openModal } = useModalStore();
 
   const dropdownItems = [
-    // {
-    //   label: "수정",
-    //   onClick: () => deleteTemplateItems && deleteTemplateItems(id),
-    // },
+    {
+      label: "수정",
+      onClick: () =>
+        openModal(
+          "Todo 수정",
+          <TodoModalItem buttonLabel="수정" todoId={id} context={context} />
+        ),
+    },
     {
       label: "삭제",
-      onClick: () => deleteTemplateItems && deleteTemplateItems(id),
+      onClick: () => onDelete?.(id),
     },
   ];
 
@@ -23,7 +41,7 @@ export default function TodoItem({ id, content, status }: TodoItemProps) {
 
   const handleCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const mode = e.target.checked ? "done" : "start";
-    updateTodoStatus(id, mode);
+    onUpdateStatus?.(id, mode);
   };
 
   return (
@@ -34,11 +52,16 @@ export default function TodoItem({ id, content, status }: TodoItemProps) {
         onChange={handleCheckBox}
       />
       <p className="text-black">{content}</p>
-      <Dropdown
-        buttonContent="⋮"
-        items={dropdownItems}
-        className={styles.dropdownPos}
-      />
+      {context === "list" && isRepeat === true ? (
+        // 모양 유지용..
+        <div className={styles.dropdownPos} />
+      ) : (
+        <Dropdown
+          buttonContent="⋮"
+          items={dropdownItems}
+          className={styles.dropdownPos}
+        />
+      )}
     </div>
   );
 }

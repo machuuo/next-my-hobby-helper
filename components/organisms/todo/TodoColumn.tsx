@@ -4,13 +4,16 @@ import { Heading } from "@/components/atoms/heading/Heading"; // 경로 확인
 import TodoCard from "@/components/organisms/todo/TodoCard";
 import styles from "./TodoColumn.module.css";
 
-interface TodoColumnProps {
+interface Props {
   mode?: string;
   todos: TodoItemProps[];
+  context: "list" | "options";
   onDragStart?: (e: React.DragEvent<HTMLElement>) => void;
   onDrop?: (e: React.DragEvent<HTMLElement>, mode: string) => void;
   onDragOver?: (e: React.DragEvent<HTMLElement>) => void;
   onAddTodo?: () => void;
+  onUpdateTodo: (id: string, content: string) => void;
+  onDeleteTodo: (id: string) => void;
 }
 
 const headingMap: { [key: string]: string } = {
@@ -21,11 +24,13 @@ const headingMap: { [key: string]: string } = {
 const TodoColumn = ({
   mode,
   todos,
+  context,
   onDragStart,
   onDrop,
   onDragOver,
   onAddTodo,
-}: TodoColumnProps) => {
+  onDeleteTodo,
+}: Props) => {
   return (
     <div className={styles.column}>
       <Heading className={styles.heading}>
@@ -43,10 +48,15 @@ const TodoColumn = ({
             onDragStart={onDragStart}
             data-id={todo.id}
           >
-            <TodoCard {...todo} data-id={todo.id} />
+            <TodoCard
+              {...todo}
+              context={context}
+              data-id={todo.id}
+              onDelete={onDeleteTodo}
+            />
           </li>
         ))}
-        {mode === "start" && (
+        {context === "list" && mode === "start" && (
           <li>
             <BaseButton className={styles.addButton} onClick={onAddTodo}>
               Todo 추가

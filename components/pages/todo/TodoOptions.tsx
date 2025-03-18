@@ -2,12 +2,17 @@
 
 import { TodoColumn, TodoHeader } from "@/components/organisms/todo";
 import { TodoTemplate } from "@/components/templates/TodoTemplate";
-import { useTodoStore } from "@/stores/todoStore";
+import { useTodoTemplateStore } from "@/stores/todoTemplateStore";
 import { useEffect } from "react";
 
 export default function TodoOptions() {
-  const { todoTemplates, loadTodoTemplates, handleSubmitTemplateItems } =
-    useTodoStore();
+  const {
+    todoTemplates,
+    loadTodoTemplates,
+    handleSubmitTemplateItems,
+    updateTemplateItems,
+    deleteTemplateItems,
+  } = useTodoTemplateStore();
 
   useEffect(() => {
     loadTodoTemplates();
@@ -26,7 +31,12 @@ export default function TodoOptions() {
         onSubmit={handleSubmitTemplateItems}
       />
       <div className="flex flex-row">
-        <TodoColumn todos={todoTemplates} />
+        <TodoColumn
+          todos={todoTemplates}
+          context="options"
+          onUpdateTodo={updateTemplateItems}
+          onDeleteTodo={deleteTemplateItems}
+        />
       </div>
     </TodoTemplate>
   );

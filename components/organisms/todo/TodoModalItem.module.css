@@ -7,5 +7,5 @@
 }
 
 .button {
-  @apply bg-slate-50 text-gray-600 w-[100px];
+  @apply bg-slate-300 text-gray-600 w-[100px];
 }

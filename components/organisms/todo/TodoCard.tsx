@@ -1,11 +1,19 @@
-import { TodoItemProps } from "@/types/Item";
+import { TodoTemplateProps } from "@/types/Item";
 import TodoItem from "./TodoItem";
-import classNames from "classnames";
 import styles from "./TodoCard.module.css";
+import classNames from "classnames";
 
-export default function TodoCard(props: TodoItemProps) {
-  const { status, priority } = props;
+interface Props extends TodoTemplateProps {
+  context: "list" | "options";
+  onDelete: (id: string) => void;
+}
 
+export default function TodoCard({
+  context,
+  priority,
+  onDelete,
+  ...rest
+}: Props) {
   const priorityColor = {
     high: "border-red-500",
     medium: "border-yellow-500",
@@ -13,13 +21,18 @@ export default function TodoCard(props: TodoItemProps) {
   }[priority || "low"];
 
   const cardStyle = `${styles.card} ${priorityColor} ${
-    status === "done" ? styles.done : ""
+    rest.status === "done" ? styles.done : ""
   }`;
 
   // TODO: 체크박스(atoms), 모달(molecules) 컴포넌트 필요
   return (
     <div className={classNames(cardStyle, priorityColor)}>
-      <TodoItem {...props} />
+      <TodoItem
+        context={context}
+        priority={priority}
+        onDelete={onDelete}
+        {...rest}
+      />
     </div>
   );
 }
