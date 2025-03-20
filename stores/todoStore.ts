@@ -1,4 +1,4 @@
-import { TodoItemProps, TodoListProps } from "@/types/Item";
+import { TodoItemProps, TodoListProps, TodoTemplateProps } from "@/types/Item";
 import { create } from "zustand";
 
 interface State {
@@ -25,12 +25,28 @@ export const useTodoStore = create<State & Action>((set) => ({
       const templates = JSON.parse(localStorage.getItem("templates") || "[]");
       const todayTodos = JSON.parse(localStorage.getItem("today") || "[]");
 
-      const uniqueTodos = [...templates, ...todayTodos].reduce(
-        (acc: Record<string, TodoItemProps>, cur) => {
-          acc[cur.id] = cur;
+      const templatesMap = templates.reduce(
+        (
+          acc: Record<string, TodoTemplateProps>,
+          template: TodoTemplateProps
+        ) => {
+          acc[template.id] = template;
           return acc;
         },
-        {}
+        {} as Record<string, TodoTemplateProps>
+      );
+
+      const uniqueTodos = [...templates, ...todayTodos].reduce(
+        (acc: Record<string, TodoItemProps>, todo) => {
+          const templateItem = templatesMap[todo.id];
+
+          acc[todo.id] = {
+            ...todo,
+            content: templateItem ? templateItem.content : todo.content,
+          };
+          return acc;
+        },
+        {} as Record<string, TodoItemProps>
       );
 
       set({ todos: Object.values(uniqueTodos) });

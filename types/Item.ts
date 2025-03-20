@@ -2,7 +2,6 @@ export interface TodoTemplateProps {
   id: string;
   content: string;
   priority: "high" | "medium" | "low";
-  status: "start" | "done";
   isRepeat?: boolean;
   isSelected?: boolean;
 }
@@ -10,6 +9,7 @@ export interface TodoTemplateProps {
 export type TodoTemplateListProps = TodoTemplateProps[];
 
 export interface TodoItemProps extends TodoTemplateProps {
+  status: "start" | "done";
   date?: Date;
 }
 

@@ -41,7 +41,6 @@ export const useTodoTemplateStore = create<State & Action>((set) => ({
     const newTemplate = {
       id: new Date().getTime().toString(),
       content: todo,
-      status: "start" as const,
       priority: "low" as const,
       isRepeat: true,
       // isSelected: false,
