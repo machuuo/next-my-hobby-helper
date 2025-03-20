@@ -4,7 +4,7 @@ import { useTodoTemplateStore } from "@/stores/todoTemplateStore";
 import { useModalStore } from "@/stores/modalStore";
 import { StyledButton } from "@/components/atoms/button";
 import { StyledInput } from "@/components/atoms/input";
-import styles from "./TodoModalItem.module.css";
+import styles from "./TodoModal.module.css";
 
 interface Props {
   buttonLabel: string;
@@ -12,7 +12,7 @@ interface Props {
   todoId?: string;
 }
 
-export default function TodoModalItem({ buttonLabel, context, todoId }: Props) {
+export default function TodoModal({ buttonLabel, context, todoId }: Props) {
   const { handleSubmit, updateTodoItems } = useTodoStore();
   const { updateTemplateItems } = useTodoTemplateStore();
   const { closeModal } = useModalStore();

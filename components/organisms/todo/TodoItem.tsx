@@ -1,6 +1,6 @@
 import { TodoItemProps } from "@/types/Item";
 import { useModalStore } from "@/stores/modalStore";
-import TodoModalItem from "./TodoModalItem";
+import TodoModalItem from "./TodoModal";
 import BaseCheckBox from "@/components/atoms/checkbox/BaseCheckBox";
 import Dropdown from "@/components/organisms/dropdown/Dropdown";
 import styles from "./TodoItem.module.css";
@@ -52,16 +52,14 @@ export default function TodoItem({
         onChange={handleCheckBox}
       />
       <p className="text-black">{content}</p>
-      {context === "list" && isRepeat === true ? (
-        // 모양 유지용..
-        <div className={styles.dropdownPos} />
-      ) : (
-        <Dropdown
-          buttonContent="⋮"
-          items={dropdownItems}
-          className={styles.dropdownPos}
-        />
-      )}
+      <div className={styles.dropdownPos}>
+        {context === "list" && isRepeat === true ? (
+          // 모양 유지용..
+          <></>
+        ) : (
+          <Dropdown buttonContent="⋮" items={dropdownItems} />
+        )}
+      </div>
     </div>
   );
 }

@@ -1,4 +1,8 @@
-import { TodoItemProps } from "@/types/Item";
+import {
+  TodoItemProps,
+  TodoListProps,
+  TodoTemplateListProps,
+} from "@/types/Item";
 import { BaseButton } from "@/components/atoms/button"; // 경로 확인
 import { Heading } from "@/components/atoms/heading/Heading"; // 경로 확인
 import TodoCard from "@/components/organisms/todo/TodoCard";
@@ -6,7 +10,7 @@ import styles from "./TodoColumn.module.css";
 
 interface Props {
   mode?: string;
-  todos: TodoItemProps[];
+  todos: TodoListProps | TodoTemplateListProps;
   context: "list" | "options";
   onDragStart?: (e: React.DragEvent<HTMLElement>) => void;
   onDrop?: (e: React.DragEvent<HTMLElement>, mode: string) => void;

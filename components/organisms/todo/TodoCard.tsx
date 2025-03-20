@@ -4,8 +4,8 @@ import styles from "./TodoCard.module.css";
 import classNames from "classnames";
 
 interface Props extends TodoTemplateProps {
-  status: TodoItemProps["status"];
   context: "list" | "options";
+  status?: TodoItemProps["status"];
   onDelete: (id: string) => void;
 }
 
