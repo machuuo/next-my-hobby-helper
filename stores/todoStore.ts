@@ -25,6 +25,7 @@ export const useTodoStore = create<State & Action>((set) => ({
       const templates = JSON.parse(localStorage.getItem("templates") || "[]");
       const todayTodos = JSON.parse(localStorage.getItem("today") || "[]");
 
+      // TODO: template과 todos의 status 차이를 확인하고 today todos의 status를 유지하되, content는 계속 갱신할 수 있도록 변경
       const templatesMap = templates.reduce(
         (
           acc: Record<string, TodoTemplateProps>,

@@ -20,9 +20,7 @@ function CommonNav() {
                 onClick={() => subMenus.length && toggleMenu(menu.id)}
               >
                 {!subMenus.length ? (
-                  <Link href={menu.path} className={styles.subMenuLink}>
-                    {menu.label}
-                  </Link>
+                  <Link href={menu.path}>{menu.label}</Link>
                 ) : (
                   <>{menu.label}</>
                 )}

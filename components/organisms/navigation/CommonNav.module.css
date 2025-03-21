@@ -17,7 +17,6 @@
 .menuButton {
   background: none;
   border: none;
-  color: white;
   font-size: 1rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
@@ -52,13 +51,14 @@
   padding: 0.5rem 1rem;
 }
 
+.subMenuItem:hover {
+  background-color: #666;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
 .subMenuLink {
   color: white;
   text-decoration: none;
   display: block;
-}
-
-.subMenuLink:hover {
-  background-color: #666;
-  border-radius: 4px;
 }
