@@ -1,14 +1,16 @@
-import { TodoItemProps } from "@/types/Item";
+import { BaseTodoProps, TodoSource, TodoStatus } from "@/types/Item";
 import { useModalStore } from "@/stores/modalStore";
 import TodoModalItem from "./TodoModal";
 import BaseCheckBox from "@/components/atoms/checkbox/BaseCheckBox";
 import Dropdown from "@/components/organisms/dropdown/Dropdown";
 import styles from "./TodoItem.module.css";
 
-interface Props extends TodoItemProps {
+interface Props extends BaseTodoProps {
   context: "list" | "options";
+  source: TodoSource;
+  status: TodoStatus;
   onDelete: (id: string) => void;
-  onUpdateStatus?: (id: string, mode: TodoItemProps["status"]) => void;
+  onUpdateStatus?: (id: string, mode: TodoStatus) => void;
 }
 
 export default function TodoItem({
@@ -16,7 +18,7 @@ export default function TodoItem({
   content,
   status,
   context,
-  isRepeat,
+  source,
   onDelete,
   onUpdateStatus,
 }: Props) {
@@ -53,7 +55,7 @@ export default function TodoItem({
       />
       <p className="text-black">{content}</p>
       <div className={styles.dropdownPos}>
-        {context === "list" && isRepeat === true ? (
+        {context === "list" && source === "template" ? (
           // 모양 유지용..
           <></>
         ) : (

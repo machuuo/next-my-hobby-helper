@@ -13,12 +13,34 @@
 
 ---
 
+### 2025-03-22
+
+### **🛠️ 수정**
+
+- > Todo type 수정
+  - 타입 별칭 추가
+  - 템플릿, todayTodos를 명확하게 구분하기 위한 타입 지정
+    - source 프로퍼티로 구분
+      - "template"
+      - "temporary"
+    - isRepeat 프로퍼티 제거
+- > todayTodos 수정
+  - 템플릿 아이템 삭제 시 todayTodos에 반영되지 않는 현상 수정
+    - filter, some 활용하여
+
+---
+
 ### 2025-03-21
 
 ### **🛠️ 수정**
 
 - > text-foreground 설정 오류 수정
   - color 설정 제거
+- > todayTodos 수정
+  - 임시할 일 먼저 추가 후 반복할 일 추가 시 표출 안되는 현상
+    - 반복할 일은 템플릿이기 때문에 status(진행 상태) 설정이 없어서 발생하는 현상
+    - status 설정 로직 todoStore에 추가
+    - TodoList 내에서 useEffect 활용하여 로컬스토리지 자동 갱신
 
 ---
 

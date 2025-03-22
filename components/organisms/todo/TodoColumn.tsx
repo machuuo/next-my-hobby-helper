@@ -1,17 +1,19 @@
+import React from "react";
 import {
-  TodoItemProps,
-  TodoListProps,
+  TodoContext,
+  TodoStatus,
   TodoTemplateListProps,
+  TodoListProps,
 } from "@/types/Item";
-import { BaseButton } from "@/components/atoms/button"; // 경로 확인
-import { Heading } from "@/components/atoms/heading/Heading"; // 경로 확인
+import { BaseButton } from "@/components/atoms/button";
+import { Heading } from "@/components/atoms/heading/Heading";
 import TodoCard from "@/components/organisms/todo/TodoCard";
 import styles from "./TodoColumn.module.css";
 
 interface Props {
   mode?: string;
   todos: TodoListProps | TodoTemplateListProps;
-  context: "list" | "options";
+  context: TodoContext;
   onDragStart?: (e: React.DragEvent<HTMLElement>) => void;
   onDrop?: (e: React.DragEvent<HTMLElement>, mode: string) => void;
   onDragOver?: (e: React.DragEvent<HTMLElement>) => void;
@@ -38,11 +40,11 @@ const TodoColumn = ({
   return (
     <div className={styles.column}>
       <Heading className={styles.heading}>
-        {headingMap[mode as TodoItemProps["status"]]}
+        {headingMap[mode as TodoStatus]}
       </Heading>
       <ul
         className={styles.list}
-        onDrop={(e) => onDrop?.(e, mode as TodoItemProps["status"])}
+        onDrop={(e) => onDrop?.(e, mode as TodoStatus)}
         onDragOver={onDragOver}
       >
         {todos.map((todo) => (
@@ -72,4 +74,4 @@ const TodoColumn = ({
   );
 };
 
-export default TodoColumn;
+export default React.memo(TodoColumn);

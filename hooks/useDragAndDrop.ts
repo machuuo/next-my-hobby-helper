@@ -1,11 +1,11 @@
 "use client";
 
-import { TodoItemProps } from "@/types/Item";
+import { TodoStatus } from "@/types/Item";
 import { useCallback } from "react";
 
 interface Props {
   onDragStart?: (dragEl: HTMLElement) => void; // 드래그 시작 시 호출
-  onDrop?: (id: string, mode: TodoItemProps["status"]) => void; // 드롭 완료 시 호출
+  onDrop?: (id: string, mode: TodoStatus) => void; // 드롭 완료 시 호출
 }
 
 export default function useDragAndDropEle({ onDragStart, onDrop }: Props) {
@@ -25,10 +25,7 @@ export default function useDragAndDropEle({ onDragStart, onDrop }: Props) {
     (e: React.DragEvent<HTMLElement>, mode: string) => {
       e.preventDefault();
       const draggedId = e.dataTransfer.getData("text/plain");
-      if (draggedId && onDrop) {
-        onDrop(draggedId, mode as "start" | "done");
-      }
-      // onDrop?.(draggedId, mode);
+      onDrop?.(draggedId, mode as TodoStatus);
     },
     [onDrop]
   );

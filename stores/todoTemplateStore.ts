@@ -15,7 +15,6 @@ interface Action {
 }
 
 export const useTodoTemplateStore = create<State & Action>((set) => ({
-  // Templates
   todoTemplates: [],
   setTodoTemplates: (templates) => {
     set({ todoTemplates: templates });
@@ -42,8 +41,7 @@ export const useTodoTemplateStore = create<State & Action>((set) => ({
       id: new Date().getTime().toString(),
       content: todo,
       priority: "low" as const,
-      isRepeat: true,
-      // isSelected: false,
+      source: "template" as const,
     };
 
     set((state) => {

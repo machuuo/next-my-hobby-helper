@@ -1,4 +1,9 @@
-import { TodoItemProps, TodoListProps, TodoTemplateProps } from "@/types/Item";
+import {
+  TodoItemProps,
+  TodoListProps,
+  TodoStatus,
+  TodoTemplateProps,
+} from "@/types/Item";
 import { create } from "zustand";
 
 interface State {
@@ -11,11 +16,10 @@ interface Action {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   updateTodoItems: (id: string, content: string) => void;
   deleteTodoItems: (id: string) => void;
-  toggleStatus: (id: string, mode: TodoItemProps["status"]) => void;
+  toggleStatus: (id: string, mode: TodoStatus) => void;
 }
 
 export const useTodoStore = create<State & Action>((set) => ({
-  // Today todos
   todos: [],
   setTodos: (todos) => {
     set({ todos });
@@ -25,24 +29,27 @@ export const useTodoStore = create<State & Action>((set) => ({
       const templates = JSON.parse(localStorage.getItem("templates") || "[]");
       const todayTodos = JSON.parse(localStorage.getItem("today") || "[]");
 
-      // TODO: template과 todos의 status 차이를 확인하고 today todos의 status를 유지하되, content는 계속 갱신할 수 있도록 변경
-      const templatesMap = templates.reduce(
-        (
-          acc: Record<string, TodoTemplateProps>,
-          template: TodoTemplateProps
-        ) => {
-          acc[template.id] = template;
-          return acc;
-        },
-        {} as Record<string, TodoTemplateProps>
+      // templates 목록이 갱신됐을 경우 동기화를 위한 작업
+      const filteredTodayTodos = todayTodos.filter(
+        (todo: TodoItemProps | TodoTemplateProps) => {
+          if (todo.source === "template") {
+            return templates.some(
+              (template: TodoTemplateProps) => template.id === todo.id
+            );
+          }
+          return true;
+        }
       );
 
-      const uniqueTodos = [...templates, ...todayTodos].reduce(
+      const uniqueTodos = [...templates, ...filteredTodayTodos].reduce(
         (acc: Record<string, TodoItemProps>, todo) => {
-          const templateItem = templatesMap[todo.id];
+          const templateItem = templates.find(
+            (template: TodoTemplateProps) => template.id === todo.id
+          );
 
           acc[todo.id] = {
             ...todo,
+            status: todo.status ? todo.status : "start",
             content: templateItem ? templateItem.content : todo.content,
           };
           return acc;
@@ -66,8 +73,9 @@ export const useTodoStore = create<State & Action>((set) => ({
     const newTodo = {
       id: new Date().getTime().toString(),
       content: todo,
-      status: "start" as const,
       priority: "low" as const,
+      source: "temporary" as const,
+      status: "start" as const,
       date: new Date(),
     };
 

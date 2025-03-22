@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect } from "react";
-import { TodoItemProps } from "@/types/Item";
+import { TodoListProps, TodoStatus } from "@/types/Item";
 import { useTodoStore } from "@/stores/todoStore";
 import { useModalStore } from "@/stores/modalStore";
 import useDragAndDropEle from "@/hooks/useDragAndDrop";
@@ -33,7 +33,7 @@ export default function TodoList() {
 
   // 드롭 커스텀 이벤트 핸들러 -> 훅 내부 드롭 이벤트 처리 시 실행할 함수
   const handleDropUpdate = useCallback(
-    (id: string, mode: TodoItemProps["status"]) => {
+    (id: string, mode: TodoStatus) => {
       toggleStatus(id, mode);
     },
     [toggleStatus]
@@ -47,12 +47,12 @@ export default function TodoList() {
     openModal("Todo 추가", <TodoModalItem buttonLabel="추가" context="list" />); // 모달 내용 추가 필요
   }, [openModal]);
 
-  const todoList: Record<TodoItemProps["status"], TodoItemProps[]> = {
+  const todoList: Record<TodoStatus, TodoListProps> = {
     start: todos.filter((todo) => todo.status === "start"),
     done: todos.filter((todo) => todo.status === "done"),
   };
 
-  const modes: TodoItemProps["status"][] = ["start", "done"];
+  const modes: TodoStatus[] = ["start", "done"];
 
   return (
     <TodoTemplate>
@@ -64,7 +64,7 @@ export default function TodoList() {
         {modes.map((mode) => (
           <TodoColumn
             key={mode}
-            mode={mode as TodoItemProps["status"]}
+            mode={mode as TodoStatus}
             todos={todoList[mode] || []}
             context="list"
             onDragStart={handleDragStart}

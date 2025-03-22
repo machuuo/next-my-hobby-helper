@@ -1,10 +1,10 @@
 import { createContext, useContext } from "react";
-import { TodoItemProps, TodoListProps } from "@/types/Item";
+import { TodoListProps, TodoStatus } from "@/types/Item";
 
 // Context API -> zustand
 interface TodoContextProps {
   todos: TodoListProps;
-  handleTodos: (id: string, mode: TodoItemProps["status"]) => void;
+  handleTodos: (id: string, mode: TodoStatus) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
