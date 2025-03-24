@@ -18,20 +18,18 @@ export default function Dropdown({
   };
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mouseup", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mouseup", handleClickOutside);
-    };
+    // const handleClickOutside = (e: MouseEvent) => {
+    //   if (
+    //     dropdownRef.current &&
+    //     !dropdownRef.current.contains(e.target as Node)
+    //   ) {
+    //     setIsOpen(false);
+    //   }
+    // };
+    // document.addEventListener("mouseup", handleClickOutside);
+    // return () => {
+    //   document.removeEventListener("mouseup", handleClickOutside);
+    // };
   }, []);
 
   return (

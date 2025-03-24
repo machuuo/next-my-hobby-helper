@@ -29,7 +29,7 @@ export default function TodoCard({
     {
       [styles.done]: status === "done",
     },
-    source === "template" ? "bg-white" : "bg-yellow-100"
+    source === "temporary" ? "bg-white" : "bg-yellow-100"
   );
 
   // TODO: 체크박스(atoms), 모달(molecules) 컴포넌트 필요

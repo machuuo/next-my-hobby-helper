@@ -1,37 +1,58 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
+import menus from "@/data/menu.json";
+import { useDropdown } from "@/hooks/useDropdown";
 import { BaseButton } from "@/components/atoms/button";
-import { useNavStore } from "@/stores/navStore";
+import NavLink from "@/components/atoms/navLink/NavLink";
 import styles from "./CommonNav.module.css";
 
 function CommonNav() {
-  const { menus, openMenu, toggleMenu } = useNavStore();
+  const [activeMenu, setActiveMenu] = useState<string>();
+  const { ref, isOpen, toggle, close } = useDropdown<HTMLUListElement>({});
+
+  const handleMenu = (id: string) => {
+    if (activeMenu === id && isOpen) {
+      close();
+      setActiveMenu("");
+    } else {
+      toggle();
+      setActiveMenu(id);
+    }
+  };
 
   return (
     <nav className={styles.nav}>
-      <ul className={styles.menu}>
+      <ul className={styles.menu} ref={ref}>
         {menus.map((menu) => {
           const subMenus = menu.subMenus || [];
+          const hasSubMenus = subMenus.length > 0;
+
           return (
             <li key={menu.id} className={styles.menuItem}>
-              <BaseButton
-                className={styles.menuButton}
-                onClick={() => subMenus.length && toggleMenu(menu.id)}
-              >
-                {!subMenus.length ? (
-                  <Link href={menu.path}>{menu.label}</Link>
-                ) : (
-                  <>{menu.label}</>
-                )}
-              </BaseButton>
-              {subMenus.length > 0 && openMenu === menu.id && (
+              {!hasSubMenus ? (
+                <NavLink href={menu.path} className={styles.menuButton}>
+                  {menu.label}
+                </NavLink>
+              ) : (
+                <BaseButton
+                  className={styles.menuButton}
+                  onClick={() => handleMenu(menu.id)}
+                >
+                  {menu.label}
+                </BaseButton>
+              )}
+              {hasSubMenus && activeMenu === menu.id && isOpen && (
                 <ul className={styles.subMenu}>
                   {subMenus.map((item) => (
                     <li key={item.id} className={styles.subMenuItem}>
-                      <Link href={item.path} className={styles.subMenuLink}>
+                      <NavLink
+                        href={item.path}
+                        className={styles.subMenuNavLink}
+                        onClick={close}
+                      >
                         {item.label}
-                      </Link>
+                      </NavLink>
                     </li>
                   ))}
                 </ul>
