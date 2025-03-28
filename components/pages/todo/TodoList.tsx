@@ -32,7 +32,7 @@ export default function TodoList() {
   }, [todos]);
 
   // 드롭 커스텀 이벤트 핸들러 -> 훅 내부 드롭 이벤트 처리 시 실행할 함수
-  const handleDropUpdate = useCallback(
+  const handleUpdateStatus = useCallback(
     (id: string, mode: TodoStatus) => {
       toggleStatus(id, mode);
     },
@@ -40,7 +40,7 @@ export default function TodoList() {
   );
 
   const { handleDragStart, handleDrop, handleDragOver } = useDragAndDropEle({
-    onDrop: handleDropUpdate,
+    onDrop: handleUpdateStatus,
   });
 
   const handleOpenModal = useCallback(() => {
@@ -73,6 +73,7 @@ export default function TodoList() {
             onAddTodo={handleOpenModal}
             onUpdateTodo={updateTodoItems}
             onDeleteTodo={deleteTodoItems}
+            onUpdateStatus={handleUpdateStatus}
           />
         ))}
       </div>

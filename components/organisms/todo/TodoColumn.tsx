@@ -20,6 +20,7 @@ interface Props {
   onAddTodo?: () => void;
   onUpdateTodo: (id: string, content: string) => void;
   onDeleteTodo: (id: string) => void;
+  onUpdateStatus?: (id: string, mode: TodoStatus) => void;
 }
 
 const headingMap: { [key: string]: string } = {
@@ -36,6 +37,7 @@ const TodoColumn = ({
   onDragOver,
   onAddTodo,
   onDeleteTodo,
+  onUpdateStatus,
 }: Props) => {
   return (
     <div className={styles.column}>
@@ -59,6 +61,7 @@ const TodoColumn = ({
               context={context}
               data-id={todo.id}
               onDelete={onDeleteTodo}
+              onUpdateStatus={onUpdateStatus}
             />
           </li>
         ))}

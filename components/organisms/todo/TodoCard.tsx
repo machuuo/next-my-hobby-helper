@@ -7,6 +7,7 @@ interface Props extends BaseTodoProps {
   context: "list" | "options";
   status?: TodoStatus;
   onDelete: (id: string) => void;
+  onUpdateStatus?: (id: string, mode: TodoStatus) => void;
 }
 
 export default function TodoCard({
@@ -15,6 +16,7 @@ export default function TodoCard({
   source,
   status = "start",
   onDelete,
+  onUpdateStatus,
   ...rest
 }: Props) {
   const priorityColor = {
@@ -41,6 +43,7 @@ export default function TodoCard({
         source={source}
         status={status}
         onDelete={onDelete}
+        onUpdateStatus={onUpdateStatus}
         {...rest}
       />
     </div>

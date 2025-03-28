@@ -29,8 +29,26 @@ export const useTodoStore = create<State & Action>((set) => ({
       const templates = JSON.parse(localStorage.getItem("templates") || "[]");
       const todayTodos = JSON.parse(localStorage.getItem("today") || "[]");
 
+      const start = new Date();
+      start.setHours(0, 0, 0, 0);
+      const end = new Date();
+      end.setHours(23, 59, 59, 999);
+
+      const realTodayTodos = todayTodos.filter((todo: TodoItemProps) => {
+        if (todo.source === "temporary") {
+          const todoDate = new Date(todo.date);
+          return (
+            todoDate.getTime() >= start.getTime() &&
+            todoDate.getTime() <= end.getTime()
+          );
+        } else if (todo.source === "template") {
+          return true;
+        }
+        return false;
+      });
+
       // templates 목록이 갱신됐을 경우 동기화를 위한 작업
-      const filteredTodayTodos = todayTodos.filter(
+      const filteredTodayTodos = realTodayTodos.filter(
         (todo: TodoItemProps | TodoTemplateProps) => {
           if (todo.source === "template") {
             return templates.some(
