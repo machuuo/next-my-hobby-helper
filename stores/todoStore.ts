@@ -34,6 +34,7 @@ export const useTodoStore = create<State & Action>((set) => ({
       const end = new Date();
       end.setHours(23, 59, 59, 999);
 
+      // 과거 (어제, 혹은 먼 과거)의 임시 할 일 제거한 목록
       const realTodayTodos = todayTodos.filter((todo: TodoItemProps) => {
         if (todo.source === "temporary") {
           const todoDate = new Date(todo.date);
@@ -47,7 +48,7 @@ export const useTodoStore = create<State & Action>((set) => ({
         return false;
       });
 
-      // templates 목록이 갱신됐을 경우 동기화를 위한 작업
+      // templates 목록이 갱신됐을 경우 동기화한 목록
       const filteredTodayTodos = realTodayTodos.filter(
         (todo: TodoItemProps | TodoTemplateProps) => {
           if (todo.source === "template") {
@@ -59,16 +60,28 @@ export const useTodoStore = create<State & Action>((set) => ({
         }
       );
 
+      // 템플릿, 오늘의 할 일 목록을 합쳐서 중복 제거한 목록
       const uniqueTodos = [...templates, ...filteredTodayTodos].reduce(
         (acc: Record<string, TodoItemProps>, todo) => {
           const templateItem = templates.find(
             (template: TodoTemplateProps) => template.id === todo.id
           );
 
+          let todoDate = new Date(todo.date);
+          const isPreviousTodo = todoDate.getTime() < start.getTime();
+
+          const todoContent = templateItem
+            ? templateItem.content
+            : todo.content;
+          const todoStatus =
+            todoDate && isPreviousTodo ? "start" : todo.status || "start";
+          todoDate = isPreviousTodo || !todoDate ? new Date() : todoDate;
+
           acc[todo.id] = {
             ...todo,
-            status: todo.status ? todo.status : "start",
-            content: templateItem ? templateItem.content : todo.content,
+            content: todoContent,
+            status: todoStatus,
+            date: todoDate,
           };
           return acc;
         },

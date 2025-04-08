@@ -13,6 +13,16 @@
 
 ---
 
+### 2025-04-08
+
+### **✅ 추가**
+
+- > todoStore.ts - loadTodos 수정
+  - 반복할 일도 오늘이 지나면 status을 start로 초기화하여 리셋되도록 수정
+  - date를 비교할 수 있도록 template to todayTodos 인 데이터에 date 프로퍼티 추가
+
+---
+
 ### 2025-03-28
 
 ### **🔄 변경**
