@@ -1,5 +1,6 @@
 import { BaseTodoProps, TodoSource, TodoStatus } from "@/types/Item";
-import { useModalStore } from "@/stores/modalStore";
+import { useModalStore } from "@/stores/modal/modalStore";
+import { selectOpenModal } from "@/stores/modal/modalSelectors";
 import TodoModalItem from "./TodoModal";
 import BaseCheckBox from "@/components/atoms/checkbox/BaseCheckBox";
 import Dropdown from "@/components/organisms/dropdown/Dropdown";
@@ -22,7 +23,7 @@ export default function TodoItem({
   onDelete,
   onUpdateStatus,
 }: Props) {
-  const { openModal } = useModalStore();
+  const openModal = useModalStore(selectOpenModal);
 
   const dropdownItems = [
     {

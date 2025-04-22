@@ -1,11 +1,11 @@
 import { TodoTemplateListProps } from "@/types/Item";
 import { create } from "zustand";
 
-interface State {
+export interface TodoTemplateState {
   todoTemplates: TodoTemplateListProps;
 }
 
-interface Action {
+export interface TodoTemplateAction {
   setTodoTemplates: (templates: TodoTemplateListProps) => void;
   loadTodoTemplates: () => void;
   handleSubmitTemplateItems: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -14,7 +14,9 @@ interface Action {
   // deleteTemplates: (templateId: string) => void;
 }
 
-export const useTodoTemplateStore = create<State & Action>((set) => ({
+export const useTodoTemplateStore = create<
+  TodoTemplateState & TodoTemplateAction
+>((set) => ({
   todoTemplates: [],
   setTodoTemplates: (templates) => {
     set({ todoTemplates: templates });

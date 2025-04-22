@@ -2,17 +2,24 @@
 
 import { TodoColumn, TodoHeader } from "@/components/organisms/todo";
 import { TodoTemplate } from "@/components/templates/TodoTemplate";
-import { useTodoTemplateStore } from "@/stores/todoTemplateStore";
+import { useTodoTemplateStore } from "@/stores/todo/todoTemplateStore";
+import {
+  selectTodoTemplates,
+  selectLoadTodoTemplates,
+  selectHandleSubmitTemplateItems,
+  selectUpdateTemplateItems,
+  selectDeleteTemplateItems,
+} from "@/stores/todo/todoTemplateSelectors";
 import { useEffect } from "react";
 
 export default function TodoOptions() {
-  const {
-    todoTemplates,
-    loadTodoTemplates,
-    handleSubmitTemplateItems,
-    updateTemplateItems,
-    deleteTemplateItems,
-  } = useTodoTemplateStore();
+  const todoTemplates = useTodoTemplateStore(selectTodoTemplates);
+  const loadTodoTemplates = useTodoTemplateStore(selectLoadTodoTemplates);
+  const handleSubmitTemplateItems = useTodoTemplateStore(
+    selectHandleSubmitTemplateItems
+  );
+  const updateTemplateItems = useTodoTemplateStore(selectUpdateTemplateItems);
+  const deleteTemplateItems = useTodoTemplateStore(selectDeleteTemplateItems);
 
   useEffect(() => {
     loadTodoTemplates();

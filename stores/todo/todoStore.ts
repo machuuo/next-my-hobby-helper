@@ -6,11 +6,11 @@ import {
 } from "@/types/Item";
 import { create } from "zustand";
 
-interface State {
+export interface TodoState {
   todos: TodoListProps;
 }
 
-interface Action {
+export interface TodoAction {
   setTodos: (todos: TodoListProps) => void;
   loadTodos: () => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -19,7 +19,7 @@ interface Action {
   toggleStatus: (id: string, mode: TodoStatus) => void;
 }
 
-export const useTodoStore = create<State & Action>((set) => ({
+export const useTodoStore = create<TodoState & TodoAction>((set) => ({
   todos: [],
   setTodos: (todos) => {
     set({ todos });

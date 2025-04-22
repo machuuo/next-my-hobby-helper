@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
-interface State {
+export interface ThemeState {
   theme: string;
 }
 
-interface Action {
+export interface ThemeAction {
   setTheme(theme: string): void;
   toggleTheme(): void;
 }
 
-export const useThemeStore = create<State & Action>((set) => ({
+export const useThemeStore = create<ThemeState & ThemeAction>((set) => ({
   theme: "light",
   setTheme: (theme) => set({ theme }),
   toggleTheme: () =>

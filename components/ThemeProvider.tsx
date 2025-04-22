@@ -1,12 +1,14 @@
 "use client";
 
-import { useThemeStore } from "@/stores/themeStore";
+import { useThemeStore } from "@/stores/theme/themeStore";
+import { selectTheme, selectSetTheme } from "@/stores/theme/themeSelectors";
 import { useEffect } from "react";
 
 export default function ThemeProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const { theme, setTheme } = useThemeStore();
+  const theme = useThemeStore(selectTheme);
+  const setTheme = useThemeStore(selectSetTheme);
 
   useEffect(() => {
     const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")

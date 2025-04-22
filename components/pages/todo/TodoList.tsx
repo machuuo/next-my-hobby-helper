@@ -2,8 +2,17 @@
 
 import { useCallback, useEffect } from "react";
 import { TodoListProps, TodoStatus } from "@/types/Item";
-import { useTodoStore } from "@/stores/todoStore";
-import { useModalStore } from "@/stores/modalStore";
+import { useTodoStore } from "@/stores/todo/todoStore";
+import {
+  selectTodos,
+  selectLoadTodos,
+  selectHandleSubmit,
+  selectToggleStatus,
+  selectUpdateTodoItems,
+  selectDeleteTodoItems,
+} from "@/stores/todo/todoSelectors";
+import { useModalStore } from "@/stores/modal/modalStore";
+import { selectOpenModal } from "@/stores/modal/modalSelectors";
 import useDragAndDropEle from "@/hooks/useDragAndDrop";
 import { TodoTemplate } from "@/components/templates/TodoTemplate";
 import {
@@ -13,15 +22,15 @@ import {
 } from "@/components/organisms/todo";
 
 export default function TodoList() {
-  const { openModal } = useModalStore();
-  const {
-    todos,
-    loadTodos,
-    handleSubmit,
-    toggleStatus,
-    updateTodoItems,
-    deleteTodoItems,
-  } = useTodoStore();
+  // modal
+  const openModal = useModalStore(selectOpenModal);
+  // todo
+  const todos = useTodoStore(selectTodos);
+  const handleSubmit = useTodoStore(selectHandleSubmit);
+  const updateTodoItems = useTodoStore(selectUpdateTodoItems);
+  const deleteTodoItems = useTodoStore(selectDeleteTodoItems);
+  const toggleStatus = useTodoStore(selectToggleStatus);
+  const loadTodos = useTodoStore(selectLoadTodos);
 
   useEffect(() => {
     loadTodos();

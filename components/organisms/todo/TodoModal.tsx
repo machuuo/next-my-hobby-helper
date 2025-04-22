@@ -1,7 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useTodoStore } from "@/stores/todoStore";
-import { useTodoTemplateStore } from "@/stores/todoTemplateStore";
-import { useModalStore } from "@/stores/modalStore";
+import { useTodoStore } from "@/stores/todo/todoStore";
+import {
+  selectHandleSubmit,
+  selectUpdateTodoItems,
+} from "@/stores/todo/todoSelectors";
+import { useTodoTemplateStore } from "@/stores/todo/todoTemplateStore";
+import { selectUpdateTemplateItems } from "@/stores/todo/todoTemplateSelectors";
+import { useModalStore } from "@/stores/modal/modalStore";
+import { selectCloseModal } from "@/stores/modal/modalSelectors";
 import { StyledButton } from "@/components/atoms/button";
 import { StyledInput } from "@/components/atoms/input";
 import styles from "./TodoModal.module.css";
@@ -13,9 +19,10 @@ interface Props {
 }
 
 export default function TodoModal({ buttonLabel, context, todoId }: Props) {
-  const { handleSubmit, updateTodoItems } = useTodoStore();
-  const { updateTemplateItems } = useTodoTemplateStore();
-  const { closeModal } = useModalStore();
+  const handleSubmit = useTodoStore(selectHandleSubmit);
+  const updateTodoItems = useTodoStore(selectUpdateTodoItems);
+  const updateTemplateItems = useTodoTemplateStore(selectUpdateTemplateItems);
+  const closeModal = useModalStore(selectCloseModal);
   const [content, setContent] = useState<string>("");
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
